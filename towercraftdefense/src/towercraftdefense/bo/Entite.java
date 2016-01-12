@@ -6,11 +6,13 @@
 package towercraftdefense.bo;
 
 import interfaces.Idrawable;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
-import java.awt.Rectangle;
+
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,39 +22,70 @@ import javax.imageio.ImageIO;
  *
  * @author ligles
  */
-public class Entite extends Rectangle implements Idrawable {
+public class Entite extends Rectangle2D.Double implements Idrawable {
+    
+    
+    private double vitesse;
+    private double angle;
 
-    private double mvtx;
-    private double mvty;
+    public double getVitesse() {
+        return vitesse;
+    }
+
+    public void setVitesse(double vitesse) {
+        this.vitesse = vitesse;
+    }
+
+    public double getAngle() {
+        return angle;
+    }
+
+    public void setAngle(double angle) {
+        this.angle = angle;
+    }
+
+    
+
+    public double getCoordx() {
+        return this.x;
+    }
+
+    public void setCoordx(double coordx) {
+        this.x = coordx;
+    }
+
+    public double getCoordy() {
+        return this.y;
+    }
+
+    public void setCoordy(double coordy) {
+        this.y = coordy;
+    }
     public Image img;
 
-    public double getMvtx() {
-        return mvtx;
-    }
-
-    public void setMvtx(double mvtx) {
-        this.mvtx = mvtx;
-    }
-
-    public double getMvty() {
-        return mvty;
-    }
-
-    public void setMvty(double mvty) {
-        this.mvty = mvty;
-    }
-
    
+     public Entite(double coordx, double coordy, double width, double height) {
+         super(coordx, coordy, width, height);
    
-    
-     public Entite(int i, int i1, int width, int height) {
-        super(i, i1, width, height);
+     }
+     public Entite(double coordx, double coordy, double width, double height, double vitesse, double angle) {
+         super(coordx, coordy, width, height);
         
+         this.vitesse = vitesse;
+         this.angle = angle;
+         try {
+            img = ImageIO.read(towercraftdefense.ressources.Ressource.class.getResource("smile.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(Entite.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+         
+       
     }
 
     
     
-    public Entite(int i, int i1, int width, int height, double mvtx, double mvty) {
+    /*public Entite(int i, int i1, int width, int height, double mvtx, double mvty) {
         super(i, i1, width, height);
         
             this.mvtx = mvtx;
@@ -63,15 +96,25 @@ public class Entite extends Rectangle implements Idrawable {
             Logger.getLogger(Entite.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    
+    public Entite(int i, int i1, int width, int height, double vitesse, double angle, double mvtx) {
+        super(i, i1, width, height);
+        
+            this.vitesse = vitesse;
+            this.angle = angle;
+        try {
+            img = ImageIO.read(towercraftdefense.ressources.Ressource.class.getResource("smile.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(Entite.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    */
     
     @Override
     public void draw(Graphics2D g) {
          g.setColor(Color.red);
          
-         g.drawImage(img, x,y,width,height,null);
-        
+         g.drawImage(img, (int)x,(int)y,(int)width,(int)height,null);
+         
         
     }
     
