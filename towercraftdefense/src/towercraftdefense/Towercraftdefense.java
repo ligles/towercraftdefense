@@ -5,6 +5,10 @@
  */
 package towercraftdefense;
 
+import towercraftdefense.manager.EntiteManager;
+import towercraftdefense.manager.UIManager;
+import towercraftdefense.threads.GameThread;
+
 /**
  *
  * @author ligles
@@ -15,7 +19,11 @@ public class Towercraftdefense {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        EntiteManager.init();
+       
+        UIManager.getFenetre().setVisible(true);
+        
+        GameThread.LaunchRepaintThread();
     }
     
 }
