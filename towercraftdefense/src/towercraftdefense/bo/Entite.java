@@ -85,29 +85,7 @@ public class Entite extends Rectangle2D.Double implements Idrawable {
 
     
     
-    /*public Entite(int i, int i1, int width, int height, double mvtx, double mvty) {
-        super(i, i1, width, height);
-        
-            this.mvtx = mvtx;
-            this.mvty = mvty;
-        try {
-            img = ImageIO.read(towercraftdefense.ressources.Ressource.class.getResource("smile.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(Entite.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    public Entite(int i, int i1, int width, int height, double vitesse, double angle, double mvtx) {
-        super(i, i1, width, height);
-        
-            this.vitesse = vitesse;
-            this.angle = angle;
-        try {
-            img = ImageIO.read(towercraftdefense.ressources.Ressource.class.getResource("smile.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(Entite.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    */
+   
     
     @Override
     public void draw(Graphics2D g) {
