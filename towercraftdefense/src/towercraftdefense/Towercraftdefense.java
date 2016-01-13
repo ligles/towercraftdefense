@@ -6,7 +6,7 @@
 package towercraftdefense;
 
 import javax.swing.JFrame;
-import towercraftdefense.manager.EntiteManager;
+import towercraftdefense.manager.OuvrierManager;
 import towercraftdefense.manager.UIManager;
 import towercraftdefense.manager.ZoneManager;
 import towercraftdefense.threads.GameThread;
@@ -22,7 +22,7 @@ public class Towercraftdefense {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        EntiteManager.init();
+        OuvrierManager.init();
         ZoneManager.init();
       
                 

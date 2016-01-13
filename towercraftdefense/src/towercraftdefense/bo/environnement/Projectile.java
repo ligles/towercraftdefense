@@ -1,17 +1,20 @@
 package towercraftdefense.bo.environnement;
 
 import java.awt.Image;
+import towercraftdefense.bo.Entite;
+import towercraftdefense.bo.EntiteMobile;
 
 /**
  * Created by SDOUGAMEHDI on 12/01/2016.
  */
-public class Projectile  extends Gobject{
+public class Projectile  extends EntiteMobile{
+    
     private int degats;
 
-    public Projectile(int degats, int x, int y, int height, int width, Image img) {
-        super(x, y, height, width);
-        this.degats = degats;
+    public Projectile(double coordx, double coordy, double width, double height, double vitesse, double angle) {
+        super(coordx, coordy, width, height, vitesse, angle);
     }
 
+    
     
 }

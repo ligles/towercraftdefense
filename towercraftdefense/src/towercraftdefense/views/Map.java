@@ -13,7 +13,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 import towercraftdefense.bo.Entite;
 import towercraftdefense.bo.Zone;
-import towercraftdefense.manager.EntiteManager;
+import towercraftdefense.manager.OuvrierManager;
 import towercraftdefense.manager.ZoneManager;
 /**
  *
@@ -33,7 +33,7 @@ public class Map extends JPanel {
         g2.setColor(Color.blue);
         g2.fillRect(0, 0, getWidth(), getHeight());
         
-       for(Entite entite : EntiteManager.getClone()){
+       for(Entite entite : OuvrierManager.getClone()){
            
            entite.draw(g2);
            

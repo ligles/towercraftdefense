@@ -1,41 +1,28 @@
 package towercraftdefense.bo.biosphere;
 
 import java.awt.Image;
+import towercraftdefense.bo.EntiteMobile;
 
 /**
  * Created by SDOUGAMEHDI on 12/01/2016.
  */
-public class Personnage {
+public class Personnage extends EntiteMobile {
+    
+    private int health;
+    private int damage;
   
-    public double getXpersonnage() {
-        return xpersonnage;
+    public Personnage(double coordx, double coordy, double width, double height, double vitesse, double angle, int health) {
+        super(coordx, coordy, width, height, vitesse, angle);
+        this.health = health;
     }
 
-    public void setXpersonnage(double xpersonnage) {
-        this.xpersonnage = xpersonnage;
-    }
-
-    public double getYpersonnage() {
-        return ypersonnage;
-    }
-
-    public void setYpersonnage(double ypersonnage) {
-        this.ypersonnage = ypersonnage;
-    }
-
-    public Image getImgpersonnage() {
-        return imgpersonnage;
-    }
-
-    public void setImgpersonnage(Image imgpersonnage) {
-        this.imgpersonnage = imgpersonnage;
+    public Personnage(double coordx, double coordy, double width, double height, double vitesse, double angle, int health, int damage ) {
+        super(coordx, coordy, width, height, vitesse, angle);
+        this.health = health;
+        this.damage = damage;
     }
     
-   public double xpersonnage;
-   public double ypersonnage;
-   public Image imgpersonnage;
-   
-   
- 
+  
+    
    
 }

@@ -19,12 +19,13 @@ public class Zone extends Rectangle implements Idrawable{
     boolean isWalkable;
     boolean isBuildable;
     boolean isFarmable;
-    
+    boolean isFree;
     
 
-    public Zone(int x, int y, boolean isFarmable,boolean isBuildable, boolean isWalkable) {
+    public Zone(int x, int y,boolean isFree ,boolean isFarmable,boolean isBuildable, boolean isWalkable) {
         
         super(x, y,10 ,10);
+        this.isFree = isFree;
         this.isBuildable = isBuildable;
         this.isFarmable = isFarmable;
         this.isWalkable = isWalkable;

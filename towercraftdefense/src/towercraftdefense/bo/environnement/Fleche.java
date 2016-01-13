@@ -7,12 +7,10 @@ import java.awt.Image;
  */
 public class Fleche extends Projectile {
 
-    private int angle;
-
-    public Fleche(int angle, int degats, int x, int y, int height, int width, Image img) {
-        super(degats, x, y, height, width, img);
-        this.angle = angle;
+    public Fleche(double coordx, double coordy, double width, double height, double vitesse, double angle) {
+        super(coordx, coordy, width, height, vitesse, angle);
     }
- 
+
     
 }
+
