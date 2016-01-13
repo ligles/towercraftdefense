@@ -18,11 +18,13 @@ public class Partie {
     Base base;
     Chemin chemin;
 
-    public Partie(ArrayList<Personnage> personnages, ArrayList<Ressource> ressources, ArrayList<Tour> tours, Base base, Chemin chemin) {
-        this.personnages = personnages;
-        this.ressources = ressources;
-        this.tours = tours;
-        this.base = base;
-        this.chemin = chemin;
+    public Partie() {
+        this.personnages = new ArrayList<Personnage>();
+        this.ressources = new ArrayList<Ressource>();
+        this.tours = new ArrayList<Tour>();
+        this.base = new Base(new Ressource(200), 0, 0, 0, 0);
+        this.chemin = new Chemin(15);
     }
+    
+    
 }

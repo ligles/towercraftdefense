@@ -4,11 +4,8 @@
  * and open the template in the editor.
  */
 package towercraftdefense.manager;
-
 import java.util.ArrayList;
 import towercraftdefense.bo.Entite;
-
-
 
 /**
  *
@@ -60,13 +57,13 @@ public class EntiteManager {
            // this.dy = y;
             entite.setCoordy((entite.getCoordy() + y)); 
 
-            if (UIManager.getFenetre().panneau1.getHeight() != 0 && UIManager.getFenetre().panneau1.getWidth() != 0)
+            if (UIManager.getFenetre().map1.getHeight() != 0 && UIManager.getFenetre().map1.getWidth() != 0)
             {
-                if (entite.getHeight()+entite.y > UIManager.getFenetre().panneau1.getHeight() || entite.y < 0)
+                if (entite.getHeight()+entite.y > UIManager.getFenetre().map1.getHeight() || entite.y < 0)
                 {
                     entite.setAngle(entite.getAngle() + 90);
                 }
-                if (entite.getWidth()+ entite.x > UIManager.getFenetre().panneau1.getWidth() || entite.x < 0)
+                if (entite.getWidth()+ entite.x > UIManager.getFenetre().map1.getWidth() || entite.x < 0)
                 {
                     entite.setAngle(entite.getAngle() + 90);
                 }

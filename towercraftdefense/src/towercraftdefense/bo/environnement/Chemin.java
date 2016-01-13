@@ -12,13 +12,13 @@ public class Chemin extends Gobject{
     private int longueur;
     private ArrayList<Point> listPoint;
 
-    public Chemin(int longueur, int x, int y, int height, int width, Image img) {
-        super(x, y, height, width, img);
+    public Chemin(int longueur) {
+        super(0, 0, 0, 0);
         this.longueur = longueur;
     }
     
-    public Chemin(int longueur, ArrayList<Point> listPoint, int x, int y, int height, int width, Image img) {
-        super(x, y, height, width, img);
+    public Chemin(int longueur, ArrayList<Point> listPoint, int x, int y, int height, int width) {
+        super(x, y, height, width);
         this.longueur = longueur;
         this.listPoint = listPoint;
     }
