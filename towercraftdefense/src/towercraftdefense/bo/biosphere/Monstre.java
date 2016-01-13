@@ -1,4 +1,4 @@
-package towercraftdefense.biosphere;
+package towercraftdefense.bo.biosphere;
 
 import java.awt.Image;
 
