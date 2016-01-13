@@ -5,7 +5,7 @@
  */
 package towercraftdefense.bo;
 
-import interfaces.Idrawable;
+import towercraftdefense.interfaces.Idrawable;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

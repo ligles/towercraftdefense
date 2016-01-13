@@ -11,7 +11,7 @@ public class Tour extends Gobject {
     private static float cout;
 
     public Tour(int portee, int x, int y, int height, int width, Image img) {
-        super(x, y, height, width, img);
+        super(x, y, height, width);
         this.portee = portee;
     }
 
