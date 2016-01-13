@@ -11,7 +11,7 @@ import java.awt.Rectangle;
  *
  * @author ligles
  */
-public class Zone extends Rectangle implements Drawable{
+public class Zone extends Rectangle {
     
     boolean isWalkable;
     boolean isBuildable;
