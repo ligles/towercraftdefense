@@ -1,11 +1,12 @@
 package towercraftdefense.bo.biosphere;
 
+
 import java.awt.Image;
 
-/**
- * Created by SDOUGAMEHDI on 12/01/2016.
- */
+
 public class Ouvrier extends Personnage {
+
+    
 
    public double xouvrier;
    public double youvrier;
@@ -14,6 +15,8 @@ public class Ouvrier extends Personnage {
     public Ouvrier(double xpersonnage, double ypersonnage, Image imgpersonnage) {
         super(xpersonnage, ypersonnage, imgpersonnage);
     }
+
+    
    
     
     public double getXouvrier() {
@@ -47,4 +50,3 @@ public class Ouvrier extends Personnage {
    
    
    
-

@@ -7,6 +7,15 @@ import java.awt.Image;
  */
 public class Monstre extends Personnage{
 
+    public double xmonstre;
+    public double ymonste;
+    public Image imgmonstre;
+
+    public Monstre(double xpersonnage, double ypersonnage, Image imgpersonnage) {
+        super(xpersonnage, ypersonnage, imgpersonnage);
+    }
+    
+
     public double getXmonstre() {
         return xmonstre;
     }
@@ -31,13 +40,7 @@ public class Monstre extends Personnage{
         this.imgmonstre = imgmonstre;
     }
     
-    public double xmonstre;
-    public double ymonste;
-    public Image imgmonstre;
-    
-    public Monstre(double xmonstre, double ymonste, Image imgmonstre) {
-        super(xmonstre, ymonste, imgmonstre);
-    }
+   
     
     
 }
