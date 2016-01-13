@@ -1,7 +1,10 @@
 package towercraftdefense.jeu;
 
-import towercraftdefense.biosphere.Personnage;
-import towercraftdefense.environnement.*;
+import towercraftdefense.bo.environnement.Base;
+import towercraftdefense.bo.environnement.Ressource;
+import towercraftdefense.bo.environnement.Chemin;
+import towercraftdefense.bo.environnement.Tour;
+import towercraftdefense.bo.biosphere.Personnage;
 
 import java.util.ArrayList;
 
