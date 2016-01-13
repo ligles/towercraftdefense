@@ -1,11 +1,12 @@
 package towercraftdefense.bo.environnement;
 
 import java.awt.Image;
+import towercraftdefense.bo.Entite;
 
 /**
  * Created by SDOUGAMEHDI on 12/01/2016.
  */
-public class Tour extends Gobject {
+public class Tour extends Entite {
     private int portee;
 
     private static float cout;

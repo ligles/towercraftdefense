@@ -13,35 +13,22 @@ import java.awt.Image;
 
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import towercraftdefense.enumeration.Direction;
 
 /**
  *
  * @author ligles
  */
 public class Entite extends Rectangle2D.Double implements Idrawable {
+    
+    
+   
 
-    private double vitesse;
-    private double angle;
-
-    public double getVitesse() {
-        return vitesse;
-    }
-
-    public void setVitesse(double vitesse) {
-        this.vitesse = vitesse;
-    }
-
-    public double getAngle() {
-        return angle;
-    }
-
-    public void setAngle(double angle) {
-        this.angle = angle;
-    }
+    
 
     public double getCoordx() {
         return this.x;
@@ -59,26 +46,19 @@ public class Entite extends Rectangle2D.Double implements Idrawable {
         this.y = coordy;
     }
     public Image img;
-
+    
+    // gestion des zones
+    
+    private List<Zone> zones;
+    
+    private List<Direction> plan; 
+    
    
      public Entite(double coordx, double coordy, double width, double height) {
          super(coordx, coordy, width, height);
    
      }
-     public Entite(double coordx, double coordy, double width, double height, double vitesse, double angle) {
-         super(coordx, coordy, width, height);
-        
-         this.vitesse = vitesse;
-         this.angle = angle;
-         try {
-            img = ImageIO.read(towercraftdefense.ressources.Ressource.class.getResource("smile.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(Entite.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         
-         
-       
-    }
+     
 
     
     

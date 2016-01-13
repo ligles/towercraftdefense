@@ -7,7 +7,7 @@ package towercraftdefense.threads;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import towercraftdefense.manager.EntiteManager;
+import towercraftdefense.manager.OuvrierManager;
 import towercraftdefense.manager.UIManager;
 import towercraftdefense.manager.ZoneManager;
 
@@ -51,7 +51,7 @@ public class GameThread {
     } 
     private static void Manage() {
         
-        EntiteManager manager = new EntiteManager();
+        OuvrierManager manager = new OuvrierManager();
         manager.gestionMouvemenent();
         
         try {

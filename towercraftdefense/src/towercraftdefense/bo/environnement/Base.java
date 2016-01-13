@@ -14,7 +14,8 @@ import towercraftdefense.bo.environnement.Ressource;
 /**
  * Created by SDOUGAMEHDI on 12/01/2016.
  */
-public class Base extends Gobject {
+public class Base extends Entite {
+    
     Ressource ressources;
     ArrayList<Ouvrier> ouvriers;
 

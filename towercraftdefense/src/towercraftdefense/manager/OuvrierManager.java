@@ -5,22 +5,23 @@
  */
 package towercraftdefense.manager;
 import java.util.ArrayList;
-import towercraftdefense.bo.Entite;
+
+import towercraftdefense.bo.biosphere.Ouvrier;
 
 /**
  *
  * @author ligles
  */
-public class EntiteManager {
-    private static ArrayList<Entite> entites = new ArrayList<>();
+public class OuvrierManager {
+    private static ArrayList<Ouvrier> ouvriers = new ArrayList<>();
     
 
     
     public static void init(){
         
-        entites.add(new Entite(150, 170, 60, 60,1,45));
-        entites.add(new Entite(120, 120, 60, 60,1.2,25));
-        entites.add(new Entite(200, 260, 60, 60,2.5,40));
+        ouvriers.add(new Ouvrier(150, 170, 60, 60,1,45,10,4));
+        ouvriers.add(new Ouvrier(120, 120, 60, 60,1.2,25,10,4));
+        ouvriers.add(new Ouvrier(200, 260, 60, 60,2.5,40,10,4));
       
         
         
@@ -28,16 +29,17 @@ public class EntiteManager {
     }
     public void gestionMouvemenent(){
         
-        for (Entite entite : getClone()) {
-           updateTarget(entite);
-           
+        for (Ouvrier ouvrier : getClone()) {
             
+           updateTarget(ouvrier);
+           
+           
         }
         
     }
     
     
-    public void updateTarget(Entite entite)
+    public void updateTarget(Ouvrier entite)
         {
             
             
@@ -74,9 +76,9 @@ public class EntiteManager {
     
     
     
-    public static ArrayList<Entite> getClone(){
+    public static ArrayList<Ouvrier> getClone(){
         
-        return (ArrayList<Entite>) entites.clone();
+        return (ArrayList<Ouvrier>) ouvriers.clone();
     }
     
 }
