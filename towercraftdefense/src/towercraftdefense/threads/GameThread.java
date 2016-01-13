@@ -42,7 +42,7 @@ public class GameThread {
     }
 
     private static void Repaint() {
-        UIManager.getFenetre().panneau1.repaint();
+        UIManager.getFenetre().map1.repaint();
         try {
             Thread.sleep(1);
         } catch (InterruptedException ex) {

@@ -7,6 +7,7 @@ package towercraftdefense;
 
 import towercraftdefense.manager.EntiteManager;
 import towercraftdefense.manager.UIManager;
+import towercraftdefense.manager.ZoneManager;
 import towercraftdefense.threads.GameThread;
 
 /**
@@ -20,6 +21,7 @@ public class Towercraftdefense {
      */
     public static void main(String[] args) {
         EntiteManager.init();
+        ZoneManager.init();
        
         UIManager.getFenetre().setVisible(true);
         

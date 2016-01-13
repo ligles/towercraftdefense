@@ -88,9 +88,9 @@ public class Entite extends Rectangle2D.Double implements Idrawable {
     
     @Override
     public void draw(Graphics2D g) {
-        // g.setColor(Color.red);
-         
-         g.drawImage(img, (int)x,(int)y,(int)width,(int)height,null);
+        //g.setColor(Color.red);
+        //g.fillRect((int)x, (int)y, 20, 20); 
+        g.drawImage(img, (int)x,(int)y,(int)width,(int)height,null);
          
         
     }
