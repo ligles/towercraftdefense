@@ -5,23 +5,26 @@
  */
 package towercraftdefense.views;
 
+
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
 import towercraftdefense.bo.Entite;
+import towercraftdefense.bo.Zone;
 import towercraftdefense.manager.EntiteManager;
-
+import towercraftdefense.manager.ZoneManager;
 /**
  *
  * @author ligles
  */
-public class Panneau extends JPanel {
+public class Map extends JPanel {
     Entite entite;
-    public Panneau(){ 
+    Zone zone;
+    public Map(){ 
         super(true);
-        entite = new Entite(50, 50, 25, 60);
-        
+     
    }
    @Override
     public void paintComponent(Graphics g) {
@@ -36,7 +39,11 @@ public class Panneau extends JPanel {
            
         
        }
-        
+       for(Zone zone : ZoneManager.getClone()){
+           
+            zone.draw(g2);
+       }
+       
         
     }
     

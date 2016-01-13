@@ -5,6 +5,8 @@
  */
 package towercraftdefense.views;
 
+
+
 /**
  *
  * @author ligles
@@ -15,6 +17,7 @@ public class Fenetre extends javax.swing.JFrame {
      * Creates new form Fenetre
      */
     public Fenetre() {
+        //this.setUndecorated(true);
         initComponents();
     }
 
@@ -30,9 +33,10 @@ public class Fenetre extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        panneau1 = new towercraftdefense.views.Panneau();
+        map1 = new towercraftdefense.views.Map();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("frame"); // NOI18N
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -42,14 +46,14 @@ public class Fenetre extends javax.swing.JFrame {
         jButton2.setText("Supprimer");
         jPanel1.add(jButton2);
 
-        javax.swing.GroupLayout panneau1Layout = new javax.swing.GroupLayout(panneau1);
-        panneau1.setLayout(panneau1Layout);
-        panneau1Layout.setHorizontalGroup(
-            panneau1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout map1Layout = new javax.swing.GroupLayout(map1);
+        map1.setLayout(map1Layout);
+        map1Layout.setHorizontalGroup(
+            map1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        panneau1Layout.setVerticalGroup(
-            panneau1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        map1Layout.setVerticalGroup(
+            map1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 417, Short.MAX_VALUE)
         );
 
@@ -58,15 +62,13 @@ public class Fenetre extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panneau1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(map1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(panneau1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(map1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -104,6 +106,7 @@ public class Fenetre extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
                 new Fenetre().setVisible(true);
             }
         });
@@ -113,6 +116,6 @@ public class Fenetre extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
-    public towercraftdefense.views.Panneau panneau1;
+    public towercraftdefense.views.Map map1;
     // End of variables declaration//GEN-END:variables
 }
