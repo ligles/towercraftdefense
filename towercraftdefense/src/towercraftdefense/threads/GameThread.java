@@ -36,11 +36,7 @@ public class GameThread {
                     Manage();
                 }
             }
-        }).start();
-        
-        
-        
-        
+        }).start();        
     }
 
     private static void Repaint() {
@@ -70,10 +66,6 @@ public class GameThread {
         
         ZoneManager manager = new ZoneManager();
         manager.update();
-        
-        
-        
-        
         try {
             Thread.sleep(1);
         } catch (InterruptedException ex) {

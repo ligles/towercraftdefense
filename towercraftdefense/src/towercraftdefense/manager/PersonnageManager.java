@@ -10,5 +10,8 @@ package towercraftdefense.manager;
  * @author SDOUGAMEHDI
  */
 public class PersonnageManager {
-    
+    public static void init()
+    {
+        
+    }
 }

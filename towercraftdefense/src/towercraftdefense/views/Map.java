@@ -34,10 +34,7 @@ public class Map extends JPanel {
         g2.fillRect(0, 0, getWidth(), getHeight());
         
        for(Entite entite : EntiteManager.getClone()){
-           
-           entite.draw(g2);
-           
-        
+           entite.draw(g2);        
        }
        for(Zone zone : ZoneManager.getClone()){
            

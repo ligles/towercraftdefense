@@ -29,7 +29,6 @@ public class EntiteManager {
     public void gestionMouvemenent(){
         
         for (Entite entite : getClone()) {
-            
            updateTarget(entite);
            
             

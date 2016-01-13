@@ -15,15 +15,17 @@ public class Partie {
     ArrayList<Personnage> personnages;
     ArrayList<Ressource> ressources;
     ArrayList<Tour> tours;
+    Joueur joueur;
     Base base;
     Chemin chemin;
 
-    public Partie() {
+    public Partie(Joueur joueur) {
         this.personnages = new ArrayList<Personnage>();
         this.ressources = new ArrayList<Ressource>();
         this.tours = new ArrayList<Tour>();
         this.base = new Base(new Ressource(200), 0, 0, 0, 0);
         this.chemin = new Chemin(15);
+        this.joueur = joueur;
     }
     
     

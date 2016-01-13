@@ -5,10 +5,15 @@
  */
 package towercraftdefense.interfaces;
 
+import towercraftdefense.bo.Zone;
+
 /**
  *
  * @author SDOUGAMEHDI
  */
 public interface IMovable {
-    
+    public void avancer();
+    public void reculer();
+    public Zone aDroite();
+    public Zone aGauche();
 }

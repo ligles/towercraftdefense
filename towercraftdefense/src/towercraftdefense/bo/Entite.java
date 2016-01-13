@@ -7,13 +7,13 @@ package towercraftdefense.bo;
 
 import towercraftdefense.interfaces.Idrawable;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
 
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -23,8 +23,7 @@ import javax.imageio.ImageIO;
  * @author ligles
  */
 public class Entite extends Rectangle2D.Double implements Idrawable {
-    
-    
+
     private double vitesse;
     private double angle;
 
@@ -43,8 +42,6 @@ public class Entite extends Rectangle2D.Double implements Idrawable {
     public void setAngle(double angle) {
         this.angle = angle;
     }
-
-    
 
     public double getCoordx() {
         return this.x;

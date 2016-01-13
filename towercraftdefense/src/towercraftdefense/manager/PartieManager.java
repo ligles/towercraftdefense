@@ -5,13 +5,21 @@
  */
 package towercraftdefense.manager;
 
+import towercraftdefense.jeu.Joueur;
+import towercraftdefense.jeu.Partie;
+import towercraftdefense.threads.GameThread;
+
 /**
  *
  * @author SDOUGAMEHDI
  */
-public class StructureManager {
+public class PartieManager {
+    private static Joueur joueur;
+    private static Partie partie;
+    
     public static void init()
     {
-        
+        joueur = new Joueur("Testeur");
+        partie = new Partie(joueur);
     }
 }
