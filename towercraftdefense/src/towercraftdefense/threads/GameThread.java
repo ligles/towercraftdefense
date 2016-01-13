@@ -53,10 +53,11 @@ public class GameThread {
     } 
     private static void Manage() {
         
-        EntiteManager.gestionMouvemenent();
+        EntiteManager manager = new EntiteManager();
+        manager.gestionMouvemenent();
         
         try {
-            Thread.sleep(5);
+            Thread.sleep(20);
         } catch (InterruptedException ex) {
             Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
         }
