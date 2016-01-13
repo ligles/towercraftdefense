@@ -5,10 +5,12 @@
  */
 package towercraftdefense;
 
+import javax.swing.JFrame;
 import towercraftdefense.manager.EntiteManager;
 import towercraftdefense.manager.UIManager;
 import towercraftdefense.manager.ZoneManager;
 import towercraftdefense.threads.GameThread;
+
 
 /**
  *
@@ -22,9 +24,14 @@ public class Towercraftdefense {
     public static void main(String[] args) {
         EntiteManager.init();
         ZoneManager.init();
-       
-        UIManager.getFenetre().setVisible(true);
+      
+                
         
+        
+        UIManager.getFenetre().setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        
+        
+        UIManager.getFenetre().setVisible(true);
         GameThread.LaunchRepaintThread();
         //test
     }

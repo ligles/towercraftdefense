@@ -18,27 +18,46 @@ public class ZoneManager {
     
     public static void init(){
         // dessine les zones
+        getNbZone();
+ 
         
-        zones.add(new Zone(0, 0, 20, 20));
-        zones.add(new Zone(20, 0, 20, 20));
-        zones.add(new Zone(40, 0, 20, 20));
-        zones.add(new Zone(60, 0, 20, 20));
-        zones.add(new Zone(80, 0, 20, 20));
+        zones.add(new Zone(1000, 20, true, false,false));
+        zones.add(new Zone(1020, 20, true, false,false));
+        zones.add(new Zone(1040, 20, true, false,false));
+        zones.add(new Zone(1060, 20, true, false,false));
+        zones.add(new Zone(1080, 20, true, false,false));
         
-        zones.add(new Zone(0, 20, 20, 20));
-        zones.add(new Zone(20, 20, 20, 20));
-        zones.add(new Zone(40, 20, 20, 20));
-        zones.add(new Zone(60, 20, 20, 20));
-        zones.add(new Zone(80, 20, 20, 20));
+        zones.add(new Zone(1000, 40, true, false,false));
+        zones.add(new Zone(1020, 40, true, false,false));
+        zones.add(new Zone(1040, 40, true, false,false));
+        zones.add(new Zone(1060, 40, true, false,false));
+        zones.add(new Zone(1080, 40, true, false,false));
         
+        zones.add(new Zone(1000, 60, true, false,false));
+        zones.add(new Zone(1020, 60, true, false,false));
+        zones.add(new Zone(1040, 60, true, false,false));
+        zones.add(new Zone(1060, 60, true, false,false));
+        zones.add(new Zone(1080, 60, true, false,false));
         
         
     }
    
-    
+    public static void getNbZone(){
+        
+       int x = UIManager.getFenetre().getWidth();
+       int y = UIManager.getFenetre().getHeight();
+        System.out.println("x= " + x + " y = "+ y);
+        
+    }
     
    
-    
+    public static void update(){
+        // recolte
+        
+        
+        
+        
+    }
     
     public static ArrayList<Zone> getClone(){
         

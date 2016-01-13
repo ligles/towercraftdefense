@@ -5,6 +5,8 @@
  */
 package towercraftdefense.views;
 
+
+
 /**
  *
  * @author ligles
@@ -15,6 +17,7 @@ public class Fenetre extends javax.swing.JFrame {
      * Creates new form Fenetre
      */
     public Fenetre() {
+        //this.setUndecorated(true);
         initComponents();
     }
 
@@ -33,6 +36,7 @@ public class Fenetre extends javax.swing.JFrame {
         map1 = new towercraftdefense.views.Map();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("frame"); // NOI18N
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -102,6 +106,7 @@ public class Fenetre extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
                 new Fenetre().setVisible(true);
             }
         });
