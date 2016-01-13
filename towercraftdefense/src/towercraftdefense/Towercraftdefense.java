@@ -24,6 +24,7 @@ public class Towercraftdefense {
         UIManager.getFenetre().setVisible(true);
         
         GameThread.LaunchRepaintThread();
+        //test
     }
     
 }

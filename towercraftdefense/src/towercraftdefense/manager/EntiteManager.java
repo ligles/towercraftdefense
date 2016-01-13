@@ -7,7 +7,7 @@ package towercraftdefense.manager;
 
 import java.util.ArrayList;
 import towercraftdefense.bo.Entite;
-import towercraftdefense.views.Fenetre;
+
 
 
 /**
@@ -21,70 +21,62 @@ public class EntiteManager {
     
     public static void init(){
         
-        entites.add(new Entite(50, 50, 60, 60,1,1));
-        entites.add(new Entite(120, 120, 60, 60,1,3));
-        entites.add(new Entite(180, 160, 60, 60,2,6));
+        entites.add(new Entite(150, 170, 60, 60,1,45));
+        entites.add(new Entite(120, 120, 60, 60,1.2,25));
+        entites.add(new Entite(200, 260, 60, 60,2.5,40));
       
         
         
         
     }
-    public static void gestionMouvemenent(){
-        
-            
+    public void gestionMouvemenent(){
         
         for (Entite entite : getClone()) {
             
-            
-            if(entite.getMvtx() > 0 ){
-                
-                if(entite.x + entite.width + entite.getMvtx() < UIManager.getFenetre().panneau1.getWidth()){
-                    entite.x += entite.getMvtx();
-                }else{
-                    entite.setMvtx(entite.getMvtx() * -1);
-                    entite.x += entite.getMvtx();
-                    
-                }
-            }else if (entite.getMvtx() < 0){
-                
-                if(entite.x +entite.getMvtx() > 0){
-                    entite.x += entite.getMvtx();
-                }else{
-                    entite.setMvtx( -(entite.getMvtx()));
-                    entite.x += entite.getMvtx();
-                    
-                }
-                
-            }
-                  
-            if(entite.getMvty()> 0 ){
-                
-                if(entite.y + entite.height + entite.getMvty() < UIManager.getFenetre().panneau1.getHeight()){
-                    entite.y += entite.getMvty();
-                }else{
-                    entite.setMvty(-(entite.getMvty()));
-                    entite.y += entite.getMvty(); 
-                    
-                }
-            }else if (entite.getMvty() < 0 ){
-                
-                if(entite.y + entite.getMvty() > 0){
-                    entite.y += entite.getMvty();
-                }else{
-                    entite.setMvty(-(entite.getMvty()));
-                    entite.y += entite.getMvty(); 
-                    
-                }
-                
-            }
-            
-            
-            
-            
+           updateTarget(entite);
+           
             
         }
         
     }
+    
+    
+    public void updateTarget(Entite entite)
+        {
+            
+            
+            double vitesse = entite.getVitesse();
+            double x = Math.cos(entite.getAngle() * (Math.PI / 180)) * vitesse; // donne la position x future en fonction de la vitesse
+            double y = Math.sin(entite.getAngle() * (Math.PI / 180)) * vitesse; // donne la position y future en fonction de la vitesse
+           /*
+             Ce block permettra d'afficher le bon skin en fonction de la direction     
+             if(x <0) {
+                this.way = Entite._LEFT;
+            }
+            else{ this.way = Entite._RIGHT;}
+            */
+            //this.dx = x;
+            entite.setCoordx((entite.getCoordx() + x));
+           // this.dy = y;
+            entite.setCoordy((entite.getCoordy() + y)); 
+
+            if (UIManager.getFenetre().panneau1.getHeight() != 0 && UIManager.getFenetre().panneau1.getWidth() != 0)
+            {
+                if (entite.getHeight()+entite.y > UIManager.getFenetre().panneau1.getHeight() || entite.y < 0)
+                {
+                    entite.setAngle(entite.getAngle() + 90);
+                }
+                if (entite.getWidth()+ entite.x > UIManager.getFenetre().panneau1.getWidth() || entite.x < 0)
+                {
+                    entite.setAngle(entite.getAngle() + 90);
+                }
+            }
+
+
+        }
+    
+    
+    
     
     public static ArrayList<Entite> getClone(){
         
