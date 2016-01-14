@@ -1,6 +1,5 @@
 package towercraftdefense.bo.environnement;
 
-import java.awt.Image;
 import java.io.IOException;
 import towercraftdefense.bo.biosphere.Ouvrier;
 
@@ -9,18 +8,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import towercraftdefense.bo.Entite;
-import towercraftdefense.bo.environnement.Ressource;
+import towercraftdefense.bo.Zone;
+import towercraftdefense.enumeration.Direction;
 
 /**
  * Created by SDOUGAMEHDI on 12/01/2016.
  */
-public class Base extends Entite {
+public class Base extends Structure {
     
     Ressource ressources;
     ArrayList<Ouvrier> ouvriers;
 
-    public Base(Ressource ressources, int x, int y, int height, int width) {
-        super(x, y, height, width);
+    public Base(Ressource ressources, Zone zone, ArrayList<Direction> plan)
+    {
+        super(zone, plan);
         this.ressources = ressources;
         this.ouvriers = new ArrayList<Ouvrier>();
         try {
@@ -28,5 +29,7 @@ public class Base extends Entite {
         } catch (IOException ex) {
             Logger.getLogger(Entite.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.construct();
     }
+    
 }

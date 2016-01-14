@@ -13,7 +13,9 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 import towercraftdefense.bo.Entite;
 import towercraftdefense.bo.Zone;
+import towercraftdefense.bo.environnement.Structure;
 import towercraftdefense.manager.OuvrierManager;
+import towercraftdefense.manager.StructureManager;
 import towercraftdefense.manager.ZoneManager;
 /**
  *
@@ -43,6 +45,9 @@ public class Map extends JPanel {
            
             zone.draw(g2);
        }
+       
+       for(Structure structure : StructureManager.getClone())
+           structure.draw(g2);
        
         
     }

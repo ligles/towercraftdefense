@@ -17,9 +17,11 @@ public class PartieManager {
     private static Joueur joueur;
     private static Partie partie;
     
-    public static void init()
+    public static Partie init()
     {
         joueur = new Joueur("Testeur");
         partie = new Partie(joueur);
+        partie.init();
+        return partie;
     }
 }

@@ -8,6 +8,7 @@ package towercraftdefense.threads;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import towercraftdefense.manager.OuvrierManager;
+import towercraftdefense.manager.StructureManager;
 import towercraftdefense.manager.UIManager;
 import towercraftdefense.manager.ZoneManager;
 
@@ -64,15 +65,21 @@ public class GameThread {
     }
      private static void RefreshMap() {
         
-        ZoneManager manager = new ZoneManager();
-        manager.update();
+        ZoneManager.update();
         try {
             Thread.sleep(1);
         } catch (InterruptedException ex) {
             Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+    }
+    
+    private static void animateStructure(){
+        StructureManager.update();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

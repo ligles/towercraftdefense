@@ -24,13 +24,8 @@ public class Towercraftdefense {
     public static void main(String[] args) {
         OuvrierManager.init();
         ZoneManager.init();
-      
-                
         
-        
-        UIManager.getFenetre().setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        
-        
+        UIManager.getFenetre().setExtendedState(JFrame.MAXIMIZED_BOTH);
         UIManager.getFenetre().setVisible(true);
         GameThread.LaunchRepaintThread();
         //test

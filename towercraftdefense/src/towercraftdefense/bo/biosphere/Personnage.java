@@ -6,7 +6,7 @@ import towercraftdefense.bo.EntiteMobile;
 /**
  * Created by SDOUGAMEHDI on 12/01/2016.
  */
-public class Personnage extends EntiteMobile {
+public abstract class Personnage extends EntiteMobile {
     
     private int health;
     private int damage;
