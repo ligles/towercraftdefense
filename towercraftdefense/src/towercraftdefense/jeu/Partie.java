@@ -31,7 +31,7 @@ public class Partie {
         this.ressources = new ArrayList<Ressource>();
         this.tours = new ArrayList<Tour>();
         Zone zoneBase = new Zone(200, 520);
-        this.base = new Base(new Ressource(200),zoneBase, Configuration.baseStructure());
+        this.base = new Base(new Ressource(200), zoneBase, Configuration.baseStructure());
         this.chemin = new Chemin(15);
     }
     

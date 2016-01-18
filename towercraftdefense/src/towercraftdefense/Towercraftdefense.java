@@ -6,7 +6,11 @@
 package towercraftdefense;
 
 import javax.swing.JFrame;
+import towercraftdefense.jeu.Joueur;
+import towercraftdefense.jeu.Partie;
 import towercraftdefense.manager.OuvrierManager;
+import towercraftdefense.manager.PartieManager;
+import towercraftdefense.manager.StructureManager;
 import towercraftdefense.manager.UIManager;
 import towercraftdefense.manager.ZoneManager;
 import towercraftdefense.threads.GameThread;
@@ -22,7 +26,9 @@ public class Towercraftdefense {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Partie p = PartieManager.init();
         OuvrierManager.init();
+        StructureManager.init(p);
         ZoneManager.init();
         
         UIManager.getFenetre().setExtendedState(JFrame.MAXIMIZED_BOTH);

@@ -46,9 +46,9 @@ public class Zone extends Rectangle implements Idrawable{
             case Actuel:
                 return this;
             case Haut:
-                return new Zone(x, y + Zone.size);
-            case Bas:
                 return new Zone(x, y - Zone.size);
+            case Bas:
+                return new Zone(x, y + Zone.size);
             case Droite:
                 return new Zone(x + Zone.size, y);
             case Gauche:
@@ -62,9 +62,8 @@ public class Zone extends Rectangle implements Idrawable{
     
     @Override
     public void draw(Graphics2D g) {
-        
         g.setColor(Color.yellow);
-        g.drawRect(x, y, 20, 20);
+        g.drawRect(x, y, Zone.size, Zone.size);
     }
     
     

@@ -5,6 +5,7 @@
  */
 package towercraftdefense.bo;
 
+import java.awt.Color;
 import towercraftdefense.interfaces.Idrawable;
 
 import java.awt.Graphics2D;
@@ -43,37 +44,33 @@ public class Entite extends Rectangle2D.Double implements Idrawable {
         this.construct();
     }
     
+    // Construction de l'entite selon le plan donné
     public void construct(){
         if(plan.size() > 1)
         {
             Zone nzone = zones.get(0);
-            int xSave = 0, ySave = 0;
             for(Direction direction : plan)
             {
                 nzone = nzone.getZone(direction);
                 zones.add(nzone);
-                if(xSave < nzone.x && nzone.x > this.x)
-                {
-                    this.width += nzone.width;
-                    this.x -= Zone.size;
-                    xSave = nzone.x;
-                }
-                
-                if(ySave < nzone.y && nzone.y > this.y)
-                {
-                    this.height += nzone.height;
-                    this.y += Zone.size;
-                    ySave = nzone.y;
-                }
-                
             }
             
             for(Zone zone : zones)
             {
-                if(zone.x < this.x)
-                    this.x = zone.x;
-                if(zone.y < this.y)
-                    this.y = zone.y;
+                if(this.x > zone.x)
+                {
+                    this.x -= Zone.size;
+                    this.width += Zone.size;
+                }
+                if(this.y > zone.y)
+                {
+                    this.y -= Zone.size;
+                    this.height += Zone.size;
+                }
+                if(this.x + this.width < zone.x + Zone.size)
+                    this.width += Zone.size;
+                if(this.y + this.height < zone.y + Zone.size)
+                    this.height += Zone.size;
             }
         }
     }
@@ -97,7 +94,7 @@ public class Entite extends Rectangle2D.Double implements Idrawable {
     @Override
     public void draw(Graphics2D g) {
         //g.setColor(Color.red);
-        //g.fillRect((int)x, (int)y, 20, 20); 
+        //g.drawRect((int)x, (int)y, (int)width, (int)height); 
         g.drawImage(img, (int)x,(int)y,(int)width,(int)height,null);    
     }
 }

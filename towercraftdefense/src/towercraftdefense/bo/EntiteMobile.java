@@ -54,10 +54,7 @@ public class EntiteMobile extends Entite {
             img = ImageIO.read(towercraftdefense.ressources.Ressource.class.getResource("smile.png"));
         } catch (IOException ex) {
             Logger.getLogger(Entite.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         
-         
-       
+        }   
     }
     
    

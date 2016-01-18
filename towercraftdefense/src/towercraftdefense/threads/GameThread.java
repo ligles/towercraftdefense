@@ -43,7 +43,7 @@ public class GameThread {
     private static void Repaint() {
         UIManager.getFenetre().map1.repaint();
         try {
-            Thread.sleep(1);
+            Thread.sleep(20);
         } catch (InterruptedException ex) {
             Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -67,7 +67,7 @@ public class GameThread {
         
         ZoneManager.update();
         try {
-            Thread.sleep(1);
+            Thread.sleep(20);
         } catch (InterruptedException ex) {
             Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
         }

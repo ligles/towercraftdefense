@@ -22,11 +22,8 @@ import towercraftdefense.manager.ZoneManager;
  * @author ligles
  */
 public class Map extends JPanel {
-    Entite entite;
-    Zone zone;
     public Map(){ 
-        super(true);
-     
+        super(true);    
    }
    @Override
     public void paintComponent(Graphics g) {
@@ -35,21 +32,14 @@ public class Map extends JPanel {
         g2.setColor(Color.blue);
         g2.fillRect(0, 0, getWidth(), getHeight());
         
-       for(Entite entite : OuvrierManager.getClone()){
-           
+       for(Entite entite : OuvrierManager.getClone())
            entite.draw(g2);
-           
-        
-       }
-       for(Zone zone : ZoneManager.getClone()){
-           
+       
+       for(Zone zone : ZoneManager.getClone())
             zone.draw(g2);
-       }
        
        for(Structure structure : StructureManager.getClone())
            structure.draw(g2);
-       
-        
     }
     
     
