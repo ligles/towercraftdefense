@@ -9,7 +9,6 @@ import towercraftdefense.bo.biosphere.Personnage;
 import java.util.ArrayList;
 import towercraftdefense.bo.Zone;
 import towercraftdefense.bo.environnement.Structure;
-import towercraftdefense.enumeration.Direction;
 import towercraftdefense.manager.StructureManager;
 import towercraftdefense.manager.ZoneManager;
 
@@ -37,7 +36,7 @@ public class Partie {
     }
     
     public void createBase() {
-        Zone zoneBase = ZoneManager.zones.get(ZoneManager.zones.size()*2/3);
+        Zone zoneBase = ZoneManager.aleaBaseZone();
         this.base = new Base(new Ressource(200), zoneBase, Configuration.baseStructure());
         StructureManager.structures.add(base);
     }
@@ -63,8 +62,9 @@ public class Partie {
     {
         ArrayList<Structure> structures = new ArrayList<>();
         structures.add(this.base);
-        for(Tour tour : this.tours)
+        this.tours.stream().forEach((tour) -> {
             structures.add(tour);
+        });
         return structures;
     }
 }

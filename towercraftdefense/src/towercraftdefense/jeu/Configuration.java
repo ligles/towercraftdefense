@@ -6,6 +6,7 @@
 package towercraftdefense.jeu;
 
 import java.util.ArrayList;
+import towercraftdefense.bo.Zone;
 import towercraftdefense.enumeration.Direction;
 
 /**
@@ -21,5 +22,16 @@ public class Configuration {
         plan.add(Direction.Gauche);
         
         return plan;
+    }
+    
+    public static boolean validPlan(Zone actuel, ArrayList<Direction> plan){
+        Zone nzone = actuel;
+        for(Direction direction : plan)
+        {
+            nzone = nzone.getZone(direction);
+            if(nzone == null)
+                return false;
+        }
+        return true;
     }
 }

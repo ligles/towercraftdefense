@@ -24,7 +24,7 @@ public class UIManager {
     }
 
     public static void recalculateMap() {
-        ZoneManager.init();
+        ZoneManager.update();
         StructureManager.init();
     }
     

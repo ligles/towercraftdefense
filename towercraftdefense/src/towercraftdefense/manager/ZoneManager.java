@@ -5,7 +5,13 @@
  */
 package towercraftdefense.manager;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import towercraftdefense.bo.Zone;
+import towercraftdefense.jeu.Configuration;
 
 /**
  *
@@ -24,8 +30,7 @@ public class ZoneManager {
         zones = new ArrayList<>();
         Zone.size = UIManager.getFenetre().getSize().width/nbrZonesX;
         nbrZonesY = UIManager.getFenetre().getSize().height/Zone.size;
-        nbrZones = nbrZonesX * nbrZonesY;
-        
+        nbrZones = nbrZonesX * nbrZonesY;   
         int saveX = 0, saveY = 0;
         for(int i = 0 ; i < nbrZones; i++)
         {
@@ -40,15 +45,43 @@ public class ZoneManager {
                 saveX = 0;
             }
         }     
-        
     }
 
     public static void update(){
-        // recolte
+        zones.stream().forEach((Zone zone) -> {
+            int saveX = 0, saveY = 0;
+            if(saveX < UIManager.getFenetre().getSize().width)
+            {
+                zone = new Zone(saveX, saveY, true, true, false,false);
+                saveX += Zone.size;
+            }
+            else
+            {
+                saveY += Zone.size;
+                saveX = 0;
+            }
+        });
+    }
+    
+    // Retourne une zone de la map ou l'on peut construire une base
+    public static Zone aleaBaseZone() {
+        Zone aleaZone;
+        ArrayList<Zone> baseZones = new ArrayList<>();
+        List<Zone> baseValidZones;
         
+        // Récupération des zones située à droite de l'écran
+        zones.stream().filter((zone) -> (zone.x > 2*UIManager.getFenetre().getWidth()/3)).forEach((zone) -> {
+            baseZones.add(zone);
+        });
         
+        // Vérification si la zone trouvée peut bien acceuillir la base
+        baseValidZones = baseZones.stream()
+                .filter(zone -> Configuration.validPlan(zone, Configuration.baseStructure()))
+                .collect(Collectors.toList());
         
+        aleaZone = baseValidZones.get(new Random().nextInt(baseValidZones.size()));
         
+        return aleaZone;
     }
     
     public static ArrayList<Zone> getClone(){

@@ -14,17 +14,15 @@ import towercraftdefense.jeu.Partie;
  */
 public class PartieManager {
     private static Joueur joueur;
-    private static Partie partie;
+    public static Partie partie;
     
-    public static Partie init()
+    public static void init()
     {
         joueur = new Joueur("Testeur");
         partie = new Partie(joueur);
-        return partie;
     }
     
-    public static Partie start(){
+    public static void start(){
         partie.init();
-        return partie;
     }
 }

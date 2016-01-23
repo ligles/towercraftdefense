@@ -7,7 +7,13 @@ package towercraftdefense.bo;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.io.IOException;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import towercraftdefense.enumeration.Direction;
 import towercraftdefense.interfaces.Idrawable;
 import towercraftdefense.manager.ZoneManager;
@@ -22,6 +28,7 @@ public class Zone extends Rectangle implements Idrawable{
     boolean isBuildable;
     boolean isFarmable;
     boolean isFree;
+    Image img;
     
     public static int size = 20;
 
@@ -30,8 +37,14 @@ public class Zone extends Rectangle implements Idrawable{
         this.isFree = isFree;
         this.isBuildable = isBuildable;
         this.isFarmable = isFarmable;
-        this.isWalkable = isWalkable; 
+        this.isWalkable = isWalkable;
+        try {
+            this.img = ImageIO.read(towercraftdefense.ressources.Ressource.class.getResource("zone.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(Zone.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+      
     
     public Zone(int x, int y) {
         super(x, y, Zone.size, Zone.size);
@@ -39,35 +52,51 @@ public class Zone extends Rectangle implements Idrawable{
         this.isBuildable = false;
         this.isFarmable = false;
         this.isWalkable = true; 
+        try {
+            this.img = ImageIO.read(towercraftdefense.ressources.Ressource.class.getResource("zone.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(Zone.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public Zone getZone(Direction d){
-        Object obj = null;
+        Optional<Zone> optional;
         Zone zone = null;
-        if(null != d)
+        final Zone cible;
+        
+        if(null != d){
             switch (d) {
             case Actuel:
                 return this;
             case Haut:
-                obj = ZoneManager.zones.stream()
-                        .filter(z -> z.equals(new Zone(x, y - Zone.size)))
-                        .findFirst().get();
+                cible = new Zone(x, y - Zone.size);
+                break;
             case Bas:
-                obj = ZoneManager.zones.stream()
-                        .filter(z -> z.equals(new Zone(x, y + Zone.size)))
-                        .findFirst().get();
+                cible = new Zone(x, y + Zone.size);
+                break;
             case Droite:
-                obj = ZoneManager.zones.stream()
-                        .filter(z -> z.equals(new Zone(x + Zone.size, y)))
-                        .findFirst().get();
+               cible = new Zone(x + Zone.size, y);
+                break;
             case Gauche:
-                obj = ZoneManager.zones.stream()
-                        .filter(z -> z.equals(new Zone(x - Zone.size, y)))
-                        .findFirst().get();
+                cible = new Zone(x - Zone.size, y);
+                break;
+            default:
+                cible = null;
+                break;
             }
-        if(obj instanceof Zone)
-            zone = (Zone) obj;   
+        }
+        else
+            cible = null;
         
+        if(cible != null)
+        {    
+            optional = ZoneManager.zones.stream()
+                            .filter(z -> z.equals(cible))
+                            .findFirst();
+            
+            if(optional.isPresent())
+                zone = optional.get();
+        }
         return zone;
     }
     
@@ -75,6 +104,7 @@ public class Zone extends Rectangle implements Idrawable{
     public void draw(Graphics2D g) {
         g.setColor(Color.BLACK);
         g.drawRect(x, y, Zone.size, Zone.size);
+        g.drawImage(img, (int)x,(int)y,(int)width,(int)height,null); 
     }
 
     @Override

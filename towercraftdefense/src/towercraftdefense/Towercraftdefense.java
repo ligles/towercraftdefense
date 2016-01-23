@@ -29,17 +29,18 @@ public class Towercraftdefense {
      */
     public static void main(String[] args) {
         configScreen();
+        
         // Lancement du thread de rafraichissement du canvas
-        GameThread.LaunchRepaintThread();
+        GameThread.init();
+        // Initialisation du gestionnaire de parties
+        PartieManager.init(); 
         
-        
-        Partie p = PartieManager.init();
+        //test    
         ZoneManager.init();  
         StructureManager.init();
-        OuvrierManager.init();  
-       
-        //test
-        p.init();
+        OuvrierManager.init();
+        PartieManager.start();
+        GameThread.start();    
     }
     
     /* Configuration de la fenêtre avant initialisation du jeu */

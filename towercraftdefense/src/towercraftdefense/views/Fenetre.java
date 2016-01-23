@@ -51,11 +51,6 @@ public class Fenetre extends javax.swing.JFrame {
 
         map.setBackground(new java.awt.Color(0, 153, 51));
         map.setForeground(new java.awt.Color(0, 153, 0));
-        map.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                maximazed(evt);
-            }
-        });
 
         javax.swing.GroupLayout mapLayout = new javax.swing.GroupLayout(map);
         map.setLayout(mapLayout);
@@ -85,10 +80,6 @@ public class Fenetre extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void maximazed(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_maximazed
-        UIManager.recalculateMap();
-    }//GEN-LAST:event_maximazed
 
     /**
      * @param args the command line arguments
