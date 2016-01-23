@@ -6,6 +6,7 @@
 package towercraftdefense.threads;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import towercraftdefense.manager.OuvrierManager;
@@ -20,14 +21,9 @@ public class GameThread {
     
     public static void init() {
         threads = new ArrayList<>();
-        threads.add(new Thread(() -> {
-            while (threads.get(0).isAlive()) {
-                Repaint();
-            }
-        }));
         
         threads.add(new Thread(() -> {
-            while (threads.get(1).isAlive()) {
+            while (threads.get(0).isAlive()) {
                 Move();
             }
         }));

@@ -5,6 +5,7 @@
  */
 package towercraftdefense.manager;
 
+import towercraftdefense.observers.Repainter;
 import towercraftdefense.views.Fenetre;
 
 /**
@@ -12,7 +13,7 @@ import towercraftdefense.views.Fenetre;
  * @author ligles
  */
 public class UIManager {
-    private static Fenetre fenetre; 
+    private static Fenetre fenetre;
     
     public static Fenetre getFenetre(){
         if(fenetre == null){

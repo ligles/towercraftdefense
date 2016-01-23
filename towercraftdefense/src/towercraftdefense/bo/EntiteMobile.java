@@ -5,7 +5,6 @@
  */
 package towercraftdefense.bo;
 
-import towercraftdefense.interfaces.Idrawable;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -17,6 +16,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import towercraftdefense.interfaces.IDrawable;
 
 /**
  *
@@ -34,6 +34,7 @@ public class EntiteMobile extends Entite {
 
     public void setVitesse(double vitesse) {
         this.vitesse = vitesse;
+        notifyObserver();
     }
 
     public double getAngle() {
@@ -42,6 +43,7 @@ public class EntiteMobile extends Entite {
 
     public void setAngle(double angle) {
         this.angle = angle;
+        notifyObserver();
     }
     
     

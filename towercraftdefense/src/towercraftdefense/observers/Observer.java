@@ -3,20 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package towercraftdefense.interfaces;
+package towercraftdefense.observers;
 
-import java.awt.Graphics2D;
+import towercraftdefense.interfaces.IObserver;
 
 /**
  *
- * @author ligles
+ * @author mehdi
  */
-public interface Idrawable {
+public abstract class Observer implements IObserver{
 
-    /**
-     *
-     * @param g
-     */
-    public void draw(Graphics2D g);
     
 }

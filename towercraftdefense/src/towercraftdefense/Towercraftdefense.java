@@ -40,7 +40,9 @@ public class Towercraftdefense {
         StructureManager.init();
         OuvrierManager.init();
         PartieManager.start();
-        GameThread.start();    
+        GameThread.start(); 
+        
+        UIManager.getFenetre().map.repaint();
     }
     
     /* Configuration de la fenêtre avant initialisation du jeu */

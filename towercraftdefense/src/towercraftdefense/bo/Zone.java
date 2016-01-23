@@ -10,19 +10,23 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import towercraftdefense.observers.Observer;
 import towercraftdefense.enumeration.Direction;
-import towercraftdefense.interfaces.Idrawable;
 import towercraftdefense.manager.ZoneManager;
+import towercraftdefense.interfaces.IDrawable;
+import towercraftdefense.interfaces.IObservable;
+import towercraftdefense.observers.Repainter;
 
 /**
  *
  * @author ligles
  */
-public class Zone extends Rectangle implements Idrawable{
+public class Zone extends Rectangle implements IDrawable, IObservable{
     
     boolean isWalkable;
     boolean isBuildable;
@@ -43,6 +47,8 @@ public class Zone extends Rectangle implements Idrawable{
         } catch (IOException ex) {
             Logger.getLogger(Zone.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.addObserver(new Repainter());
+        this.notifyObserver();
     }
       
     
@@ -57,6 +63,8 @@ public class Zone extends Rectangle implements Idrawable{
         } catch (IOException ex) {
             Logger.getLogger(Zone.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.addObserver(new Repainter());
+        this.notifyObserver();
     }
     
     public Zone getZone(Direction d){
@@ -133,9 +141,23 @@ public class Zone extends Rectangle implements Idrawable{
         }
         return true;
     }
-    
-    
-    
-    
-    
+
+    private ArrayList<Observer> observers = new ArrayList<>();
+
+    @Override
+    public void notifyObserver() {
+        observers.stream().forEach((obs) -> {
+            obs.update(this);
+        });
+    }
+
+    @Override
+    public void addObserver(Observer obs) {
+        observers.add(obs);
+    }
+
+    @Override
+    public void removeObserver(Observer obs) {
+        observers.remove(obs);
+    }
 }
