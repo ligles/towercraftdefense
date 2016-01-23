@@ -29,12 +29,9 @@ public class OuvrierManager {
     }
     public void gestionMouvemenent(){
         
-        for (Ouvrier ouvrier : getClone()) {
-            
-           updateTarget(ouvrier);
-           
-           
-        }
+        getClone().stream().forEach((ouvrier) -> {
+            updateTarget(ouvrier);
+        });
         
     }
     
@@ -58,13 +55,13 @@ public class OuvrierManager {
            // this.dy = y;
             entite.setCoordy((entite.getCoordy() + y)); 
 
-            if (UIManager.getFenetre().map1.getHeight() != 0 && UIManager.getFenetre().map1.getWidth() != 0)
+            if (UIManager.getFenetre().map.getHeight() != 0 && UIManager.getFenetre().map.getWidth() != 0)
             {
-                if (entite.getHeight()+entite.y > UIManager.getFenetre().map1.getHeight() || entite.y < 0)
+                if (entite.getHeight()+entite.y > UIManager.getFenetre().map.getHeight() || entite.y < 0)
                 {
                     entite.setAngle(entite.getAngle() + 90);
                 }
-                if (entite.getWidth()+ entite.x > UIManager.getFenetre().map1.getWidth() || entite.x < 0)
+                if (entite.getWidth()+ entite.x > UIManager.getFenetre().map.getWidth() || entite.x < 0)
                 {
                     entite.setAngle(entite.getAngle() + 90);
                 }

@@ -5,6 +5,9 @@
  */
 package towercraftdefense.views;
 
+import towercraftdefense.manager.UIManager;
+import towercraftdefense.manager.ZoneManager;
+
 
 
 /**
@@ -33,7 +36,7 @@ public class Fenetre extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        map1 = new towercraftdefense.views.Map();
+        map = new towercraftdefense.views.Map();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("frame"); // NOI18N
@@ -46,14 +49,22 @@ public class Fenetre extends javax.swing.JFrame {
         jButton2.setText("Supprimer");
         jPanel1.add(jButton2);
 
-        javax.swing.GroupLayout map1Layout = new javax.swing.GroupLayout(map1);
-        map1.setLayout(map1Layout);
-        map1Layout.setHorizontalGroup(
-            map1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        map.setBackground(new java.awt.Color(0, 153, 51));
+        map.setForeground(new java.awt.Color(0, 153, 0));
+        map.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                maximazed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout mapLayout = new javax.swing.GroupLayout(map);
+        map.setLayout(mapLayout);
+        mapLayout.setHorizontalGroup(
+            mapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 572, Short.MAX_VALUE)
         );
-        map1Layout.setVerticalGroup(
-            map1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        mapLayout.setVerticalGroup(
+            mapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 417, Short.MAX_VALUE)
         );
 
@@ -62,18 +73,22 @@ public class Fenetre extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
-            .addComponent(map1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(map, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(map1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(map, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void maximazed(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_maximazed
+        UIManager.recalculateMap();
+    }//GEN-LAST:event_maximazed
 
     /**
      * @param args the command line arguments
@@ -104,11 +119,8 @@ public class Fenetre extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                
-                new Fenetre().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Fenetre().setVisible(true);
         });
     }
 
@@ -116,6 +128,6 @@ public class Fenetre extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
-    public towercraftdefense.views.Map map1;
+    public towercraftdefense.views.Map map;
     // End of variables declaration//GEN-END:variables
 }

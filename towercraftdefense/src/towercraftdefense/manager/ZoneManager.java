@@ -12,50 +12,37 @@ import towercraftdefense.bo.Zone;
  * @author ligles
  */
 public class ZoneManager {
-    private static ArrayList<Zone> zones = new ArrayList<>();
-    
+    public static ArrayList<Zone> zones;
+    private static final int nbrZonesX = 100;
+    private static int nbrZonesY;
+    private static int nbrZones;
 
+    
     
     public static void init(){
         // dessine les zones
-        getNbZone();
- 
+        zones = new ArrayList<>();
+        Zone.size = UIManager.getFenetre().getSize().width/nbrZonesX;
+        nbrZonesY = UIManager.getFenetre().getSize().height/Zone.size;
+        nbrZones = nbrZonesX * nbrZonesY;
         
-        zones.add(new Zone(1000, 20, true, true, false,false));
-        zones.add(new Zone(1020, 20, true, true, false,false));
-        zones.add(new Zone(1040, 20, true, true, false,false));
-        zones.add(new Zone(1060, 20, true, true, false,false));
-        zones.add(new Zone(1080, 20, true, true, false,false));
-        
-        zones.add(new Zone(1000, 40, true, true, false,false));
-        zones.add(new Zone(1020, 40, true, true, false,false));
-        zones.add(new Zone(1040, 40, true, true, false,false));
-        zones.add(new Zone(1060, 40, true, true, false,false));
-        zones.add(new Zone(1080, 40, true, true, false,false));
-        
-        zones.add(new Zone(1000, 60, true, true, false,false));
-        zones.add(new Zone(1020, 60, true, true, false,false));
-        zones.add(new Zone(1040, 60, true, true, false,false));
-        zones.add(new Zone(1060, 60, true, true, false,false));
-        zones.add(new Zone(1080, 60, true, true, false,false));
-        
-        // Base
-        zones.add(new Zone(200, 520, true, true, false,false));
-        zones.add(new Zone(200, 540, true, true, false,false));
-        zones.add(new Zone(220, 520, true, true, false,false));
-        zones.add(new Zone(220, 540, true, true, false,false));        
+        int saveX = 0, saveY = 0;
+        for(int i = 0 ; i < nbrZones; i++)
+        {
+            if(saveX < UIManager.getFenetre().getSize().width)
+            {
+                zones.add(new Zone(saveX, saveY, true, true, false,false));
+                saveX += Zone.size;
+            }
+            else
+            {
+                saveY = saveY + Zone.size;
+                saveX = 0;
+            }
+        }     
         
     }
-   
-    public static void getNbZone(){
-        
-       int x = UIManager.getFenetre().getWidth();
-       int y = UIManager.getFenetre().getHeight();
-        System.out.println("x= " + x + " y = "+ y);
-        
-    }
-    
-   
+
     public static void update(){
         // recolte
         
@@ -65,8 +52,11 @@ public class ZoneManager {
     }
     
     public static ArrayList<Zone> getClone(){
+        ArrayList<Zone> clone = null;
+        if(zones != null)
+            clone = (ArrayList<Zone>) zones.clone();
         
-        return (ArrayList<Zone>) zones.clone();
+        return clone;
     }
     
 }

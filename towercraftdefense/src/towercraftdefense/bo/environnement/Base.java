@@ -23,13 +23,12 @@ public class Base extends Structure {
     {
         super(zone, plan);
         this.ressources = ressources;
-        this.ouvriers = new ArrayList<Ouvrier>();
+        this.ouvriers = new ArrayList<>();
         try {
             this.img = ImageIO.read(towercraftdefense.ressources.Ressource.class.getResource("base.png"));
         } catch (IOException ex) {
             Logger.getLogger(Entite.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.construct();
     }
     
 }

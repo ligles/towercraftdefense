@@ -55,26 +55,5 @@ public class EntiteMobile extends Entite {
         } catch (IOException ex) {
             Logger.getLogger(Entite.class.getName()).log(Level.SEVERE, null, ex);
         }   
-    }
-    
-   
-    
-    
-   
-
-    
-    
-   
-    
-    @Override
-    public void draw(Graphics2D g) {
-        //g.setColor(Color.red);
-        //g.fillRect((int)x, (int)y, 20, 20); 
-        g.drawImage(img, (int)x,(int)y,(int)width,(int)height,null);
-         
-        
-    }
-    
-    
-    
+    }    
 }

@@ -22,6 +22,11 @@ public class UIManager {
         
         return fenetre;
     }
+
+    public static void recalculateMap() {
+        ZoneManager.init();
+        StructureManager.init();
+    }
     
     
 }

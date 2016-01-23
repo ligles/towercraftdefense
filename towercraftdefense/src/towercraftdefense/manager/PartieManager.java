@@ -7,7 +7,6 @@ package towercraftdefense.manager;
 
 import towercraftdefense.jeu.Joueur;
 import towercraftdefense.jeu.Partie;
-import towercraftdefense.threads.GameThread;
 
 /**
  *
@@ -21,6 +20,10 @@ public class PartieManager {
     {
         joueur = new Joueur("Testeur");
         partie = new Partie(joueur);
+        return partie;
+    }
+    
+    public static Partie start(){
         partie.init();
         return partie;
     }

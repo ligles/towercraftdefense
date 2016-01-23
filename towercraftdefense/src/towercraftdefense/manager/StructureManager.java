@@ -6,29 +6,29 @@
 package towercraftdefense.manager;
 
 import java.util.ArrayList;
-import towercraftdefense.bo.environnement.Base;
-import towercraftdefense.bo.environnement.Ressource;
 import towercraftdefense.bo.environnement.Structure;
-import towercraftdefense.jeu.Configuration;
-import towercraftdefense.jeu.Partie;
 
 /**
  *
  * @author SDOUGAMEHDI
  */
 public class StructureManager {
-    public static ArrayList<Structure> structures = new ArrayList<>(); 
-    public static void init(Partie p)
+    public static ArrayList<Structure> structures; 
+    public static void init()
     {
-        structures = p.getStructures();
+        structures = new ArrayList<>(); 
+        
     }
     
-   public static void update(){
+   public static void animate(){
        
    }
     
     public static ArrayList<Structure> getClone(){
+        ArrayList<Structure> clone = null;
+        if(structures != null)
+            clone = (ArrayList<Structure>) structures.clone();
         
-        return (ArrayList<Structure>) structures.clone();
+        return clone;
     }
 }

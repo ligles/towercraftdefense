@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import towercraftdefense.bo.Zone;
 import towercraftdefense.bo.environnement.Structure;
 import towercraftdefense.enumeration.Direction;
+import towercraftdefense.manager.StructureManager;
+import towercraftdefense.manager.ZoneManager;
 
 /**
  * Created by SDOUGAMEHDI on 12/01/2016.
@@ -27,11 +29,25 @@ public class Partie {
     }
     
     public void init(){
-        this.personnages = new ArrayList<Personnage>();
-        this.ressources = new ArrayList<Ressource>();
-        this.tours = new ArrayList<Tour>();
-        Zone zoneBase = new Zone(200, 520);
+        this.personnages = new ArrayList<>();
+        this.ressources = new ArrayList<>();
+        this.tours = new ArrayList<>();
+        createBase();
+        createChemin();
+    }
+    
+    public void createBase() {
+        Zone zoneBase = ZoneManager.zones.get(ZoneManager.zones.size()*2/3);
         this.base = new Base(new Ressource(200), zoneBase, Configuration.baseStructure());
+        StructureManager.structures.add(base);
+    }
+    
+    public void createTour(Zone zoneTour, Tour tour){
+        this.tours.add(tour);
+        StructureManager.structures.add(tour);
+    }
+    
+    public void createChemin(){
         this.chemin = new Chemin(15);
     }
     

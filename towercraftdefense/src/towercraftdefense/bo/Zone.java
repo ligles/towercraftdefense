@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import towercraftdefense.enumeration.Direction;
 import towercraftdefense.interfaces.Idrawable;
+import towercraftdefense.manager.ZoneManager;
 
 /**
  *
@@ -41,29 +42,66 @@ public class Zone extends Rectangle implements Idrawable{
     }
     
     public Zone getZone(Direction d){
+        Object obj = null;
+        Zone zone = null;
         if(null != d)
             switch (d) {
             case Actuel:
                 return this;
             case Haut:
-                return new Zone(x, y - Zone.size);
+                obj = ZoneManager.zones.stream()
+                        .filter(z -> z.equals(new Zone(x, y - Zone.size)))
+                        .findFirst().get();
             case Bas:
-                return new Zone(x, y + Zone.size);
+                obj = ZoneManager.zones.stream()
+                        .filter(z -> z.equals(new Zone(x, y + Zone.size)))
+                        .findFirst().get();
             case Droite:
-                return new Zone(x + Zone.size, y);
+                obj = ZoneManager.zones.stream()
+                        .filter(z -> z.equals(new Zone(x + Zone.size, y)))
+                        .findFirst().get();
             case Gauche:
-                return new Zone(x - Zone.size, y);
-            default:
-                return null;
-        }
-        else 
-            return null;
+                obj = ZoneManager.zones.stream()
+                        .filter(z -> z.equals(new Zone(x - Zone.size, y)))
+                        .findFirst().get();
+            }
+        if(obj instanceof Zone)
+            zone = (Zone) obj;   
+        
+        return zone;
     }
     
     @Override
     public void draw(Graphics2D g) {
-        g.setColor(Color.yellow);
+        g.setColor(Color.BLACK);
         g.drawRect(x, y, Zone.size, Zone.size);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Zone other = (Zone) obj;
+        if (this.x != other.x) {
+            return false;
+        }
+        else if (this.y != other.y) {
+            return false;
+        }
+        return true;
     }
     
     
