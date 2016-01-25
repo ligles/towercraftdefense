@@ -6,17 +6,10 @@
 package towercraftdefense.bo;
 
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
-
-
-import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import towercraftdefense.interfaces.IDrawable;
 
 /**
  *
