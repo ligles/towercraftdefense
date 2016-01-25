@@ -40,7 +40,7 @@ public class Entite extends Rectangle2D.Double implements IDrawable, IObservable
         this.zones = new ArrayList<>();
         zones.add(zone);
         this.plan = plan;
-        this.construct();
+        this.construct();                                                           
         this.addObserver(new Repainter());
         this.notifyObserver();
     }
@@ -55,6 +55,7 @@ public class Entite extends Rectangle2D.Double implements IDrawable, IObservable
             for(Direction direction : plan)
             {                
                 nzone = nzone.getZone(direction);
+                nzone.isFree = false;
                 zones.add(nzone);
             }
             
@@ -80,6 +81,8 @@ public class Entite extends Rectangle2D.Double implements IDrawable, IObservable
                 this.height += Zone.size;
             });
         }
+        this.addObserver(new Repainter());
+        this.notifyObserver();
     }
     
     public double getCoordx() {

@@ -5,6 +5,7 @@
  */
 package towercraftdefense.views;
 
+import towercraftdefense.Towercraftdefense;
 import towercraftdefense.manager.UIManager;
 import towercraftdefense.manager.ZoneManager;
 
@@ -43,10 +44,20 @@ public class Fenetre extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
-        jButton1.setText("Ajouter");
+        jButton1.setText("Start");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clickStart(evt);
+            }
+        });
         jPanel1.add(jButton1);
 
-        jButton2.setText("Supprimer");
+        jButton2.setText("Stop");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clickStop(evt);
+            }
+        });
         jPanel1.add(jButton2);
 
         map.setBackground(new java.awt.Color(0, 153, 51));
@@ -80,6 +91,14 @@ public class Fenetre extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void clickStop(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickStop
+        Towercraftdefense.stop();
+    }//GEN-LAST:event_clickStop
+
+    private void clickStart(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickStart
+        Towercraftdefense.start();
+    }//GEN-LAST:event_clickStart
 
     /**
      * @param args the command line arguments

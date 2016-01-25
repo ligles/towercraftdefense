@@ -27,7 +27,6 @@ public class Tour extends Structure {
         } catch (IOException ex) {
             Logger.getLogger(Entite.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.construct();
     }
 
    
