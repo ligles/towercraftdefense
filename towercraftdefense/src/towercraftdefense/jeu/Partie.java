@@ -36,11 +36,9 @@ public class Partie {
     }
     
     public void createBase() {
-        if(base == null) {
-            Zone zoneBase = ZoneManager.getBaseZone();
-            this.base = new Base(new Ressource(200), zoneBase, Configuration.baseStructure());
-            StructureManager.structures.add(base);
-        }
+        Zone zoneBase = ZoneManager.aleaBaseZone();
+        this.base = new Base(new Ressource(200), zoneBase, Configuration.baseStructure());
+        StructureManager.structures.add(base);
     }
     
     public void createTour(Zone zoneTour, Tour tour){

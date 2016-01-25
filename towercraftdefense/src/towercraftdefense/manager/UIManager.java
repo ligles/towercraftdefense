@@ -5,10 +5,6 @@
  */
 package towercraftdefense.manager;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
-import towercraftdefense.Towercraftdefense;
 import towercraftdefense.observers.Repainter;
 import towercraftdefense.views.Fenetre;
 
@@ -18,22 +14,6 @@ import towercraftdefense.views.Fenetre;
  */
 public class UIManager {
     private static Fenetre fenetre;
-    
-    public static void init(){
-        fenetre = new Fenetre();
-        // Maximisation
-        fenetre.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        // Pas de redimensionnement
-        fenetre.setResizable(false);
-        // Affichage de la fenêtre
-        fenetre.setVisible(true);
-        // Attente pour déssiner complétement la fenetre
-        try {
-            Thread.sleep(200);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Towercraftdefense.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     
     public static Fenetre getFenetre(){
         if(fenetre == null){

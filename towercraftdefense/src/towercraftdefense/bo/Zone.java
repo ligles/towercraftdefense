@@ -26,12 +26,12 @@ import towercraftdefense.observers.Repainter;
  *
  * @author ligles
  */
-public class Zone extends Rectangle implements IDrawable{
+public class Zone extends Rectangle implements IDrawable, IObservable{
     
-    public boolean isWalkable;
-    public boolean isBuildable;
-    public boolean isFarmable;
-    public boolean isFree;
+    boolean isWalkable;
+    boolean isBuildable;
+    boolean isFarmable;
+    boolean isFree;
     Image img;
     
     public static int size = 20;
@@ -47,6 +47,8 @@ public class Zone extends Rectangle implements IDrawable{
         } catch (IOException ex) {
             Logger.getLogger(Zone.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.addObserver(new Repainter());
+        this.notifyObserver();
     }
       
     
@@ -61,6 +63,8 @@ public class Zone extends Rectangle implements IDrawable{
         } catch (IOException ex) {
             Logger.getLogger(Zone.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.addObserver(new Repainter());
+        this.notifyObserver();
     }
     
     public Zone getZone(Direction d){
@@ -136,5 +140,24 @@ public class Zone extends Rectangle implements IDrawable{
             return false;
         }
         return true;
+    }
+
+    private ArrayList<Observer> observers = new ArrayList<>();
+
+    @Override
+    public void notifyObserver() {
+        observers.stream().forEach((obs) -> {
+            obs.update(this);
+        });
+    }
+
+    @Override
+    public void addObserver(Observer obs) {
+        observers.add(obs);
+    }
+
+    @Override
+    public void removeObserver(Observer obs) {
+        observers.remove(obs);
     }
 }

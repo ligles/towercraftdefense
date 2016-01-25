@@ -23,12 +23,12 @@ import towercraftdefense.threads.GameThread;
  */
 public class Towercraftdefense {
     private static final JFrame fenetre = UIManager.getFenetre();
-    private static boolean isStarted = false;
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        UIManager.init();
+        configScreen();
         
         // Lancement du thread de rafraichissement du canvas
         GameThread.init();
@@ -39,19 +39,26 @@ public class Towercraftdefense {
         ZoneManager.init();  
         StructureManager.init();
         OuvrierManager.init();
-        
-    }
-    
-    public static void start(){
         PartieManager.start();
         GameThread.start(); 
         
         UIManager.getFenetre().map.repaint();
-        isStarted = true;
     }
     
-    public static void stop(){
-        if(isStarted)
-            GameThread.stop();
+    /* Configuration de la fenêtre avant initialisation du jeu */
+    private static void configScreen() {
+        // Maximisation
+        fenetre.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        // Pas de redimensionnement
+        fenetre.setResizable(false);
+        // Affichage de la fenêtre
+        fenetre.setVisible(true);
+        // Attente pour déssiner complétement la fenetre
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Towercraftdefense.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+    
 }

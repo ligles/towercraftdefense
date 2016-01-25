@@ -20,17 +20,16 @@ public class Configuration {
         plan.add(Direction.Droite);
         plan.add(Direction.Bas);
         plan.add(Direction.Gauche);
-        plan.add(Direction.Gauche);
-        plan.add(Direction.Haut);        
+        
         return plan;
     }
     
-    public static boolean validConstruct(Zone actuel, ArrayList<Direction> plan){
+    public static boolean validPlan(Zone actuel, ArrayList<Direction> plan){
         Zone nzone = actuel;
         for(Direction direction : plan)
         {
             nzone = nzone.getZone(direction);
-            if(nzone == null || !nzone.isFree)
+            if(nzone == null)
                 return false;
         }
         return true;

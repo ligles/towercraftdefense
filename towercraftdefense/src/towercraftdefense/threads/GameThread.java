@@ -18,8 +18,6 @@ import towercraftdefense.manager.UIManager;
  */
 public class GameThread {
     public static ArrayList<Thread> threads;
-    private static boolean threadsRun = true;
-    private static boolean stop = false;    
     
     public static void init() {
         threads = new ArrayList<>();
@@ -27,13 +25,6 @@ public class GameThread {
         threads.add(new Thread(() -> {
             while (threads.get(0).isAlive()) {
                 Move();
-                if(stop){
-                    try {
-                        Thread.sleep(99999999);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
             }
         }));
     }
@@ -43,17 +34,29 @@ public class GameThread {
         threads.stream().forEach((Thread thread) -> {
             if(!thread.isAlive())
                 thread.start();
-            else if(thread.isAlive())
-            {
-                thread.interrupt();
-                stop = false;
-            }
         });
     }
 
     public static void stop(){
-        stop = true;
+        threads.stream().filter((thread) -> (thread.isAlive())).forEach((Thread thread) -> {
+            try {
+                thread.wait();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }
+    
+    private static void Repaint() {
+        UIManager.getFenetre().map.repaint();
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    } 
     
     private static void Move() {
         OuvrierManager.gestionMouvemenent();
@@ -61,7 +64,6 @@ public class GameThread {
         try {
             Thread.sleep(20);
         } catch (InterruptedException ex) {
-            
             Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
         }
         

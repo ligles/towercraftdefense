@@ -5,10 +5,11 @@
  */
 package towercraftdefense.manager;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import javax.sql.rowset.Predicate;
 import towercraftdefense.bo.Zone;
 import towercraftdefense.jeu.Configuration;
 
@@ -18,7 +19,7 @@ import towercraftdefense.jeu.Configuration;
  */
 public class ZoneManager {
     public static ArrayList<Zone> zones;
-    private static final int nbrZonesX = 50;
+    private static final int nbrZonesX = 100;
     private static int nbrZonesY;
     private static int nbrZones;
 
@@ -60,24 +61,6 @@ public class ZoneManager {
                 saveX = 0;
             }
         });
-        UIManager.getFenetre().map.repaint();
-    }
-    
-    /**
-     *
-     * @param p
-     * @return
-     */
-    public static Zone getAleaZone(){
-        ArrayList<Zone> pZones = new ArrayList<>();
-        
-        // Récupération des zones située à droite de l'écran
-        zones.stream()
-                .forEach((zone) -> {
-            pZones.add(zone);
-        });
-        
-        return pZones.get(new Random().nextInt(pZones.size()));
     }
     
     // Retourne une zone de la map ou l'on peut construire une base
@@ -93,32 +76,12 @@ public class ZoneManager {
         
         // Vérification si la zone trouvée peut bien acceuillir la base
         baseValidZones = baseZones.stream()
-                .filter(zone -> Configuration.validConstruct(zone, Configuration.baseStructure()))
+                .filter(zone -> Configuration.validPlan(zone, Configuration.baseStructure()))
                 .collect(Collectors.toList());
         
         aleaZone = baseValidZones.get(new Random().nextInt(baseValidZones.size()));
         
         return aleaZone;
-    }
-    
-    public static Zone getBaseZone() {
-        Zone baseZone;
-        ArrayList<Zone> baseZones = new ArrayList<>();
-        List<Zone> baseValidZones;
-        
-        // Récupération des zones située à droite de l'écran
-        zones.stream().filter((zone) -> (zone.x > 2*UIManager.getFenetre().getWidth()/3)).forEach((zone) -> {
-            baseZones.add(zone);
-        });
-        
-        // Vérification si la zone trouvée peut bien acceuillir la base
-        baseValidZones = baseZones.stream()
-                .filter(zone -> Configuration.validConstruct(zone, Configuration.baseStructure()))
-                .collect(Collectors.toList());
-        
-        baseZone = baseValidZones.get(150);
-        
-        return baseZone;
     }
     
     public static ArrayList<Zone> getClone(){
@@ -128,6 +91,5 @@ public class ZoneManager {
         
         return clone;
     }
-
     
 }
