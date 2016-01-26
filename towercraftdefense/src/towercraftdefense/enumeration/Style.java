@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package towercraftdefense.ressources;
-
-import java.awt.Image;
+package towercraftdefense.enumeration;
 
 /**
  *
- * @author ligles
+ * @author mehdi
  */
-public class Ressource {
-    
-    
-    Image img;
+public enum Style {
+    Normal, Highlight
 }

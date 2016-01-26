@@ -5,7 +5,7 @@
  */
 package towercraftdefense.observers;
 
-import towercraftdefense.bo.Entite;
+import java.awt.geom.Rectangle2D;
 import towercraftdefense.manager.UIManager;
 
 /**
@@ -16,9 +16,9 @@ public class Repainter extends Observer {
 
     @Override
     public void update(Object obj) {
-        Entite entite;
-        if(obj != null && obj instanceof Entite){
-            entite = (Entite) obj;
+        Rectangle2D.Double entite;
+        if(obj != null && obj instanceof Rectangle2D.Double){
+            entite = (Rectangle2D.Double) obj;
             UIManager.getFenetre().map.repaint(entite.getBounds());
         }
     }

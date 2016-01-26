@@ -14,14 +14,21 @@ import towercraftdefense.enumeration.Direction;
  * @author SDOUGAMEHDI
  */
 public class Configuration {
-    public static ArrayList<Direction> baseStructure(){
+    public static ArrayList<Direction> planBase(){
         ArrayList<Direction> plan = new ArrayList<>();
         plan.add(Direction.Actuel);
         plan.add(Direction.Droite);
         plan.add(Direction.Bas);
         plan.add(Direction.Gauche);
         plan.add(Direction.Gauche);
-        plan.add(Direction.Haut);        
+        plan.add(Direction.Haut);       
+        return plan;
+    }
+    
+    public static ArrayList<Direction> planTour(){
+        ArrayList<Direction> plan = new ArrayList<>();
+        plan.add(Direction.Actuel);
+        plan.add(Direction.Haut);
         return plan;
     }
     

@@ -23,7 +23,7 @@ import towercraftdefense.threads.GameThread;
  */
 public class Towercraftdefense {
     private static final JFrame fenetre = UIManager.getFenetre();
-    private static boolean isStarted = false;
+
     /**
      * @param args the command line arguments
      */
@@ -40,18 +40,5 @@ public class Towercraftdefense {
         StructureManager.init();
         OuvrierManager.init();
         
-    }
-    
-    public static void start(){
-        PartieManager.start();
-        GameThread.start(); 
-        
-        UIManager.getFenetre().map.repaint();
-        isStarted = true;
-    }
-    
-    public static void stop(){
-        if(isStarted)
-            GameThread.stop();
     }
 }

@@ -5,11 +5,13 @@
  */
 package towercraftdefense.manager;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 import javax.sql.rowset.Predicate;
 import towercraftdefense.bo.Zone;
+import towercraftdefense.enumeration.Style;
 import towercraftdefense.jeu.Configuration;
 
 /**
@@ -63,11 +65,17 @@ public class ZoneManager {
         UIManager.getFenetre().map.repaint();
     }
     
-    /**
-     *
-     * @param p
-     * @return
-     */
+    public static Zone getZone(int x, int y){
+        for (Zone zone : zones) {
+            double maxX = zone.x + Zone.size;
+            double maxY = zone.y + Zone.size;
+            if(x > zone.x && y > zone.y && x < maxX && y < maxY)
+                return zone;
+        }
+        
+        return null;
+    }
+    
     public static Zone getAleaZone(){
         ArrayList<Zone> pZones = new ArrayList<>();
         
@@ -93,7 +101,7 @@ public class ZoneManager {
         
         // Vérification si la zone trouvée peut bien acceuillir la base
         baseValidZones = baseZones.stream()
-                .filter(zone -> Configuration.validConstruct(zone, Configuration.baseStructure()))
+                .filter(zone -> Configuration.validConstruct(zone, Configuration.planBase()))
                 .collect(Collectors.toList());
         
         aleaZone = baseValidZones.get(new Random().nextInt(baseValidZones.size()));
@@ -113,7 +121,7 @@ public class ZoneManager {
         
         // Vérification si la zone trouvée peut bien acceuillir la base
         baseValidZones = baseZones.stream()
-                .filter(zone -> Configuration.validConstruct(zone, Configuration.baseStructure()))
+                .filter(zone -> Configuration.validConstruct(zone, Configuration.planBase()))
                 .collect(Collectors.toList());
         
         baseZone = baseValidZones.get(150);
@@ -127,6 +135,18 @@ public class ZoneManager {
             clone = (ArrayList<Zone>) zones.clone();
         
         return clone;
+    }
+
+    private static Zone lastHoverZone;
+    public static void hoverZone(int x, int y) {
+        Zone hoverZone = getZone(x, y);
+        
+        if(lastHoverZone != null && hoverZone != lastHoverZone)
+            lastHoverZone.setStyle(Style.Normal);
+        if(hoverZone != null && hoverZone != lastHoverZone){
+            hoverZone.setStyle(Style.Highlight);
+            lastHoverZone = hoverZone;
+        }
     }
 
     

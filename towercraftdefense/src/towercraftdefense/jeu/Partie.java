@@ -38,12 +38,13 @@ public class Partie {
     public void createBase() {
         if(base == null) {
             Zone zoneBase = ZoneManager.getBaseZone();
-            this.base = new Base(new Ressource(200), zoneBase, Configuration.baseStructure());
+            this.base = new Base(new Ressource(200), zoneBase, Configuration.planBase());
             StructureManager.structures.add(base);
         }
     }
     
-    public void createTour(Zone zoneTour, Tour tour){
+    public void createTour(Zone zoneTour){
+        Tour tour = new Tour(zoneTour, Configuration.planTour(), 0);
         this.tours.add(tour);
         StructureManager.structures.add(tour);
     }

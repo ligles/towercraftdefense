@@ -16,6 +16,7 @@ import towercraftdefense.observers.Observer;
 import towercraftdefense.enumeration.Direction;
 import towercraftdefense.interfaces.IDrawable;
 import towercraftdefense.interfaces.IObservable;
+import towercraftdefense.jeu.Configuration;
 import towercraftdefense.observers.Repainter;
 
 /**
@@ -48,7 +49,7 @@ public class Entite extends Rectangle2D.Double implements IDrawable, IObservable
     // Construction de l'entite selon le plan donné
     protected void construct(){
         // Construction seulement s'il y a plan de plusieurs zones
-        if(plan.size() > 1)
+        if(plan.size() > 1 && Configuration.validConstruct(zones.get(0), plan))
         {
             // Lecture du plan et récupération de la liste des zones constituant l'entite
             Zone nzone = zones.get(0);
