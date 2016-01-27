@@ -8,55 +8,60 @@ package towercraftdefense.bo;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import towercraftdefense.enumeration.Direction;
+import towercraftdefense.enumeration.Style;
 import towercraftdefense.manager.ZoneManager;
 import towercraftdefense.interfaces.IDrawable;
+import towercraftdefense.interfaces.IObservable;
+import towercraftdefense.observers.Observer;
+import towercraftdefense.observers.Repainter;
 
 /**
  *
  * @author ligles
  */
-public class Zone extends Rectangle implements IDrawable{
+public class Zone extends Rectangle2D.Double implements IDrawable, IObservable{
     
     public boolean isWalkable;
     public boolean isBuildable;
     public boolean isFarmable;
     public boolean isFree;
+    private Style style;
     Image img;
+    private ArrayList<Observer> observers;
     
     public static int size = 20;
 
-    public Zone(int x, int y,boolean isFree ,boolean isFarmable,boolean isBuildable, boolean isWalkable) {
+    public Zone(double x, double y,boolean isFree ,boolean isFarmable,boolean isBuildable, boolean isWalkable) {
         super(x, y, Zone.size, Zone.size);
         this.isFree = isFree;
         this.isBuildable = isBuildable;
         this.isFarmable = isFarmable;
         this.isWalkable = isWalkable;
-        try {
-            this.img = ImageIO.read(towercraftdefense.ressources.Ressource.class.getResource("zone.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(Zone.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.style = Style.Normal;
+        this.observers = new ArrayList<>();
+        addObserver(new Repainter());
+        loadImage("zone.png");
     }
       
     
-    public Zone(int x, int y) {
+    public Zone(double x, double y) {
         super(x, y, Zone.size, Zone.size);
         this.isFree = true;
         this.isBuildable = false;
         this.isFarmable = false;
         this.isWalkable = true; 
-        try {
-            this.img = ImageIO.read(towercraftdefense.ressources.Ressource.class.getResource("zone.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(Zone.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.style = Style.Normal;
+        this.observers = new ArrayList<>();
+        addObserver(new Repainter());
+        loadImage("zone.png");
     }
     
     public Zone getZone(Direction d){
@@ -100,10 +105,33 @@ public class Zone extends Rectangle implements IDrawable{
         return zone;
     }
     
+    public void loadImage(String imgName){
+        try {
+            this.img = ImageIO.read(towercraftdefense.ressources.Ressource.class.getResource(imgName));
+        } catch (IOException ex) {
+            Logger.getLogger(Zone.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Style getStyle() {
+        return style;
+    }
+
+    public void setStyle(Style style) {
+        this.style = style;
+        if(style == Style.Normal)
+            loadImage("zone.png");
+        else if(style == Style.Highlight)
+            loadImage("zone_highlight.png");
+        notifyObserver();
+    }
+    
+    
+    
     @Override
     public void draw(Graphics2D g) {
         g.setColor(Color.BLACK);
-        g.drawRect(x, y, Zone.size, Zone.size);
+        g.drawRect((int)x, (int)y, Zone.size, Zone.size);
         g.drawImage(img, (int)x,(int)y,(int)width,(int)height,null); 
     }
 
@@ -132,5 +160,22 @@ public class Zone extends Rectangle implements IDrawable{
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void addObserver(Observer obs) {
+        observers.add(obs);
+    }
+
+    @Override
+    public void removeObserver(Observer obs) {
+        observers.remove(obs);
+    }
+
+    @Override
+    public void notifyObserver() {
+        observers.stream().forEach((obs) -> {
+            obs.update(this);
+        });
     }
 }

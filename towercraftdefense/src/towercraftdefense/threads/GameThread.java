@@ -6,11 +6,9 @@
 package towercraftdefense.threads;
 
 import java.util.ArrayList;
-import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import towercraftdefense.manager.OuvrierManager;
-import towercraftdefense.manager.UIManager;
 
 /**
  *
@@ -18,8 +16,8 @@ import towercraftdefense.manager.UIManager;
  */
 public class GameThread {
     public static ArrayList<Thread> threads;
-    private static boolean threadsRun = true;
-    private static boolean stop = false;    
+    private static boolean started = false;   
+    private static boolean stop = false;  
     
     public static void init() {
         threads = new ArrayList<>();
@@ -42,16 +40,21 @@ public class GameThread {
     public static void start(){
         threads.stream().forEach((Thread thread) -> {
             if(!thread.isAlive())
+            {
                 thread.start();
+                started = true;
+            }
             else if(thread.isAlive())
             {
                 thread.interrupt();
+                started = true;
                 stop = false;
             }
         });
     }
 
     public static void stop(){
+        started = false;
         stop = true;
     }
     
@@ -66,6 +69,10 @@ public class GameThread {
         }
         
         
+    }
+
+    public static boolean isStarted() {
+        return started;
     }
 }
 

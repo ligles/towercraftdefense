@@ -23,7 +23,7 @@ public class Tour extends Structure {
         super(zone, plan);
         fleches = new ArrayList<>(nbFleche);
         try {
-            this.img = ImageIO.read(towercraftdefense.ressources.Ressource.class.getResource("base.png"));
+            this.img = ImageIO.read(towercraftdefense.ressources.Ressource.class.getResource("tour.png"));
         } catch (IOException ex) {
             Logger.getLogger(Entite.class.getName()).log(Level.SEVERE, null, ex);
         }

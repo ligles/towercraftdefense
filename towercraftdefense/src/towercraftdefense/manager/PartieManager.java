@@ -14,6 +14,7 @@ import towercraftdefense.jeu.Partie;
  */
 public class PartieManager {
     private static Joueur joueur;
+    private static boolean started = false;
     public static Partie partie;
     
     public static void init()
@@ -24,5 +25,10 @@ public class PartieManager {
     
     public static void start(){
         partie.init();
+        started = true;
+    }
+
+    public static boolean isStarted() {
+        return started;
     }
 }

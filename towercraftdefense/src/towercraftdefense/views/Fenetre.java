@@ -1,15 +1,14 @@
-c/*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package towercraftdefense.views;
 
-import towercraftdefense.Towercraftdefense;
 import towercraftdefense.bo.Zone;
-import towercraftdefense.enumeration.Style;
 import towercraftdefense.manager.PartieManager;
 import towercraftdefense.manager.ZoneManager;
+import towercraftdefense.threads.GameThread;
 
 
 
@@ -19,6 +18,8 @@ import towercraftdefense.manager.ZoneManager;
  */
 public class Fenetre extends javax.swing.JFrame {
 
+    private boolean inPanel = false;
+    private boolean gameStarted = GameThread.isStarted() && PartieManager.isStarted();
     /**
      * Creates new form Fenetre
      */
@@ -64,6 +65,22 @@ public class Fenetre extends javax.swing.JFrame {
 
         map.setBackground(new java.awt.Color(0, 153, 51));
         map.setForeground(new java.awt.Color(0, 153, 0));
+        map.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                mapMouseMoved(evt);
+            }
+        });
+        map.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mapMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                mapMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mapMouseEntered(evt);
+            }
+        });
 
         javax.swing.GroupLayout mapLayout = new javax.swing.GroupLayout(map);
         map.setLayout(mapLayout);
@@ -95,11 +112,16 @@ public class Fenetre extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void clickStop(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickStop
-        Towercraftdefense.stop();
+        if(GameThread.isStarted())
+            GameThread.stop();
     }//GEN-LAST:event_clickStop
 
     private void clickStart(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickStart
-        Towercraftdefense.start();
+        if(!GameThread.isStarted())
+            GameThread.start();
+        if(!PartieManager.isStarted())
+            PartieManager.start();
+        this.repaint();
     }//GEN-LAST:event_clickStart
 
     private void mapMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mapMouseEntered
