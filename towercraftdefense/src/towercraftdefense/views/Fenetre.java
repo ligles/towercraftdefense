@@ -1,4 +1,4 @@
-/*
+c/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -6,7 +6,9 @@
 package towercraftdefense.views;
 
 import towercraftdefense.Towercraftdefense;
-import towercraftdefense.manager.UIManager;
+import towercraftdefense.bo.Zone;
+import towercraftdefense.enumeration.Style;
+import towercraftdefense.manager.PartieManager;
 import towercraftdefense.manager.ZoneManager;
 
 
@@ -99,6 +101,28 @@ public class Fenetre extends javax.swing.JFrame {
     private void clickStart(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickStart
         Towercraftdefense.start();
     }//GEN-LAST:event_clickStart
+
+    private void mapMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mapMouseEntered
+        inPanel = true;
+    }//GEN-LAST:event_mapMouseEntered
+
+    private void mapMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mapMouseExited
+        inPanel = false;
+    }//GEN-LAST:event_mapMouseExited
+
+    private void mapMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mapMouseMoved
+       if(inPanel && GameThread.isStarted() && PartieManager.isStarted())
+            ZoneManager.hoverZone(evt.getX(), evt.getY());
+    }//GEN-LAST:event_mapMouseMoved
+
+    private void mapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mapMouseClicked
+        if(inPanel && GameThread.isStarted() && PartieManager.isStarted())
+        {
+            Zone zone = ZoneManager.getZone(evt.getX(), evt.getY());
+            if (zone != null)
+                PartieManager.partie.createTour(zone);
+        }
+    }//GEN-LAST:event_mapMouseClicked
 
     /**
      * @param args the command line arguments

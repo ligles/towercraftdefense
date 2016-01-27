@@ -16,6 +16,7 @@ import towercraftdefense.observers.Observer;
 import towercraftdefense.enumeration.Direction;
 import towercraftdefense.interfaces.IDrawable;
 import towercraftdefense.interfaces.IObservable;
+import towercraftdefense.jeu.Configuration;
 import towercraftdefense.observers.Repainter;
 
 /**
@@ -39,50 +40,53 @@ public class Entite extends Rectangle2D.Double implements IDrawable, IObservable
         super(zone.x, zone.y, zone.width, zone.height);
         this.zones = new ArrayList<>();
         zones.add(zone);
-        this.plan = plan;
-        this.construct();                                                           
+        this.plan = plan;                                                   
         this.addObserver(new Repainter());
-        this.notifyObserver();
     }
     
     // Construction de l'entite selon le plan donné
-    protected void construct(){
+    public boolean construct(){
         // Construction seulement s'il y a plan de plusieurs zones
-        if(plan.size() > 1)
+        if(Configuration.validConstruct(zones.get(0), plan))
         {
-            // Lecture du plan et récupération de la liste des zones constituant l'entite
-            Zone nzone = zones.get(0);
-            for(Direction direction : plan)
-            {                
-                nzone = nzone.getZone(direction);
-                nzone.isFree = false;
-                zones.add(nzone);
-            }
-            
-            zones.stream().map((zone) -> {
-                if(this.x > zone.x)
-                {
-                    this.x -= Zone.size;
-                    this.width += Zone.size;
+            zones.get(0).isFree = false;
+            if(plan.size() > 1)
+            {
+                // Lecture du plan et récupération de la liste des zones constituant l'entite
+                Zone nzone = zones.get(0);
+                for(Direction direction : plan)
+                {                
+                    nzone = nzone.getZone(direction);
+                    nzone.isFree = false;
+                    zones.add(nzone);
                 }
-                return zone;
-            }).map((zone) -> {
-                if(this.y > zone.y)
-                {
-                    this.y -= Zone.size;
+
+                zones.stream().map((zone) -> {
+                    if(this.x > zone.x)
+                    {
+                        this.x -= Zone.size;
+                        this.width += Zone.size;
+                    }
+                    return zone;
+                }).map((zone) -> {
+                    if(this.y > zone.y)
+                    {
+                        this.y -= Zone.size;
+                        this.height += Zone.size;
+                    }
+                    return zone;
+                }).map((zone) -> {
+                    if(this.x + this.width < zone.x + Zone.size)
+                        this.width += Zone.size;
+                    return zone;
+                }).filter((zone) -> (this.y + this.height < zone.y + Zone.size)).forEach((_item) -> {
                     this.height += Zone.size;
-                }
-                return zone;
-            }).map((zone) -> {
-                if(this.x + this.width < zone.x + Zone.size)
-                    this.width += Zone.size;
-                return zone;
-            }).filter((zone) -> (this.y + this.height < zone.y + Zone.size)).forEach((_item) -> {
-                this.height += Zone.size;
-            });
+                });
+            }
+            this.notifyObserver();
+            return true;
         }
-        this.addObserver(new Repainter());
-        this.notifyObserver();
+        return false;
     }
     
     public double getCoordx() {

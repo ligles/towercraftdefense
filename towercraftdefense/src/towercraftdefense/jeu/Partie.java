@@ -38,14 +38,20 @@ public class Partie {
     public void createBase() {
         if(base == null) {
             Zone zoneBase = ZoneManager.getBaseZone();
-            this.base = new Base(new Ressource(200), zoneBase, Configuration.baseStructure());
-            StructureManager.structures.add(base);
+            this.base = new Base(new Ressource(200), zoneBase, Configuration.planBase());
+            boolean constructed = this.base.construct();
+            if(constructed)
+                StructureManager.structures.add(base);
         }
     }
     
-    public void createTour(Zone zoneTour, Tour tour){
-        this.tours.add(tour);
-        StructureManager.structures.add(tour);
+    public void createTour(Zone zoneTour){
+        Tour tour = new Tour(zoneTour, Configuration.planTour(), 0);
+        boolean constructed = tour.construct();
+        if(constructed){
+            this.tours.add(tour);
+            StructureManager.structures.add(tour);
+        }
     }
     
     public void createChemin(){

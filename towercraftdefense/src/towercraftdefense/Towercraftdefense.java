@@ -5,10 +5,7 @@
  */
 package towercraftdefense;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
-import towercraftdefense.jeu.Partie;
 import towercraftdefense.manager.OuvrierManager;
 import towercraftdefense.manager.PartieManager;
 import towercraftdefense.manager.StructureManager;

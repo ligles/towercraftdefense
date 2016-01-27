@@ -10,17 +10,13 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import towercraftdefense.observers.Observer;
 import towercraftdefense.enumeration.Direction;
 import towercraftdefense.manager.ZoneManager;
 import towercraftdefense.interfaces.IDrawable;
-import towercraftdefense.interfaces.IObservable;
-import towercraftdefense.observers.Repainter;
 
 /**
  *
