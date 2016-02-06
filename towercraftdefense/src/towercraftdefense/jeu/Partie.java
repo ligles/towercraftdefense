@@ -1,5 +1,6 @@
 package towercraftdefense.jeu;
 
+import java.awt.Rectangle;
 import towercraftdefense.bo.environnement.Base;
 import towercraftdefense.bo.environnement.Ressource;
 import towercraftdefense.bo.environnement.Chemin;
@@ -8,8 +9,9 @@ import towercraftdefense.bo.biosphere.Personnage;
 
 import java.util.ArrayList;
 import towercraftdefense.bo.Zone;
+import towercraftdefense.bo.environnement.Plan;
 import towercraftdefense.bo.environnement.Structure;
-import towercraftdefense.manager.StructureManager;
+import towercraftdefense.manager.EntiteManager;
 import towercraftdefense.manager.ZoneManager;
 
 /**
@@ -33,29 +35,64 @@ public class Partie {
         this.tours = new ArrayList<>();
         createBase();
         createChemin();
+        createRessources();
     }
     
     public void createBase() {
         if(base == null) {
-            Zone zoneBase = ZoneManager.getBaseZone();
-            this.base = new Base(new Ressource(200), zoneBase, Configuration.planBase());
-            boolean constructed = this.base.construct();
-            if(constructed)
-                StructureManager.structures.add(base);
+            Zone zoneBase = Base.getBaseZone();
+            this.base = new Base(200, Plan.planBase(zoneBase));
+            this.base.construct();
+            EntiteManager.entites.add(base);
         }
     }
     
     public void createTour(Zone zoneTour){
-        Tour tour = new Tour(zoneTour, Configuration.planTour(), 0);
-        boolean constructed = tour.construct();
-        if(constructed){
-            this.tours.add(tour);
-            StructureManager.structures.add(tour);
-        }
+        Tour tour = new Tour(Plan.planTour(zoneTour), 0);
+        tour.construct();
+        this.tours.add(tour);
+        EntiteManager.entites.add(tour);
     }
     
     public void createChemin(){
-        this.chemin = new Chemin(15);
+        Zone depart = Chemin.getCheminZone();
+        Zone arrive = ZoneManager.getZone((int)this.base.x, (int)this.base.y);
+        int longueur = 200;
+        Plan planChemin = new Plan();
+        Rectangle lastRectangle = new Rectangle((int)depart.x, (int)depart.y, Zone.size(15), Zone.size(2));
+        
+        for(int i = 0 ; i < 3 ; i++){
+            planChemin.addRectangle(lastRectangle);
+            if(i == 0)
+            {
+                int height = (int)arrive.y - (int)depart.y;
+                int y = lastRectangle.y + lastRectangle.height;
+                if(height < 0)
+                    y += height;
+                height = Math.abs(height);
+                lastRectangle = new Rectangle(lastRectangle.x + lastRectangle.width, y, Zone.size(2), height);
+            }
+            else if (i == 1)
+                lastRectangle = new Rectangle(lastRectangle.x + lastRectangle.width, lastRectangle.y, Zone.size(16), Zone.size(2));
+            else
+                lastRectangle = new Rectangle(lastRectangle.x + lastRectangle.width, lastRectangle.y + lastRectangle.height, Zone.size(16), Zone.size(2));
+        }
+        this.chemin = new Chemin(planChemin);
+        chemin.discover();
+        EntiteManager.entites.add(this.chemin);
+    }
+    
+    private void createRessources() {
+        for(int i = 0 ; i < 4 ; i++){
+            Zone zone = ZoneManager.getAleaZone(ZoneManager.zonesRessource());
+            while(!Ressource.validRessource(Plan.planRessource(zone)))
+                zone = ZoneManager.getAleaZone(ZoneManager.zonesRessource());
+           
+            Ressource ressource = new Ressource(4000, Plan.planRessource(zone));
+            ressource.farm();
+            this.ressources.add(ressource);
+            EntiteManager.entites.add(ressource);
+        }
     }
     
     public void charger(){
@@ -75,4 +112,5 @@ public class Partie {
         });
         return structures;
     }
+
 }

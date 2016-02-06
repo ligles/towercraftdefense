@@ -8,8 +8,8 @@ public class Ouvrier extends Personnage{
     
     
     
-    public Ouvrier(double coordx, double coordy, double width, double height, double vitesse, double angle, int health, int damage) {
-        super(coordx, coordy, width, height, vitesse, angle, health, damage);
+    public Ouvrier(int coordx, int coordy, int width, int height, int vitesse, int angle) {
+        super(coordx, coordy, width, height, vitesse, angle, 50, 0);
     }
     
     

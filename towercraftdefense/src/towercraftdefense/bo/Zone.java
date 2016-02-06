@@ -9,12 +9,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Rectangle2D;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import towercraftdefense.enumeration.Direction;
 import towercraftdefense.enumeration.Style;
 import towercraftdefense.manager.ZoneManager;
@@ -22,6 +18,7 @@ import towercraftdefense.interfaces.IDrawable;
 import towercraftdefense.interfaces.IObservable;
 import towercraftdefense.observers.Observer;
 import towercraftdefense.observers.Repainter;
+import towercraftdefense.ressources.Ressource;
 
 /**
  *
@@ -34,6 +31,7 @@ public class Zone extends Rectangle2D.Double implements IDrawable, IObservable{
     public boolean isFarmable;
     public boolean isFree;
     private Style style;
+    private Style defaultStyle;
     Image img;
     private ArrayList<Observer> observers;
     
@@ -46,9 +44,10 @@ public class Zone extends Rectangle2D.Double implements IDrawable, IObservable{
         this.isFarmable = isFarmable;
         this.isWalkable = isWalkable;
         this.style = Style.Normal;
+        this.defaultStyle = Style.Normal;
         this.observers = new ArrayList<>();
         addObserver(new Repainter());
-        loadImage("zone.png");
+        this.img = Ressource.loadImage("zone.png");
     }
       
     
@@ -59,9 +58,10 @@ public class Zone extends Rectangle2D.Double implements IDrawable, IObservable{
         this.isFarmable = false;
         this.isWalkable = true; 
         this.style = Style.Normal;
+        this.defaultStyle = Style.Normal;
         this.observers = new ArrayList<>();
         addObserver(new Repainter());
-        loadImage("zone.png");
+        this.img = Ressource.loadImage("zone.png");
     }
     
     public Zone getZone(Direction d){
@@ -104,14 +104,7 @@ public class Zone extends Rectangle2D.Double implements IDrawable, IObservable{
         }
         return zone;
     }
-    
-    public void loadImage(String imgName){
-        try {
-            this.img = ImageIO.read(towercraftdefense.ressources.Ressource.class.getResource(imgName));
-        } catch (IOException ex) {
-            Logger.getLogger(Zone.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+
 
     public Style getStyle() {
         return style;
@@ -119,13 +112,31 @@ public class Zone extends Rectangle2D.Double implements IDrawable, IObservable{
 
     public void setStyle(Style style) {
         this.style = style;
-        if(style == Style.Normal)
-            loadImage("zone.png");
-        else if(style == Style.Highlight)
-            loadImage("zone_highlight.png");
+        if(null != style)
+            switch (style) {
+            case Normal:
+                this.img = Ressource.loadImage("zone.png");
+                this.defaultStyle = Style.Normal;
+                break;
+            case Highlight:
+                this.img = Ressource.loadImage("zone_highlight.png");
+                break;
+            case Chemin:
+                this.img = Ressource.loadImage("zone_chemin.png");
+                this.defaultStyle = Style.Chemin;
+                break;
+            case Default:
+                this.setStyle(defaultStyle);
+                break;
+            default:
+                break;
+        }
         notifyObserver();
     }
     
+    public static int size(int size){
+        return Zone.size * size;
+    }
     
     
     @Override

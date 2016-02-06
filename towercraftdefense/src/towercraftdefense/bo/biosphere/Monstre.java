@@ -7,7 +7,7 @@ import java.awt.Image;
  */
 public class Monstre extends Personnage {
 
-    public Monstre(double coordx, double coordy, double width, double height, double vitesse, double angle, int health, int damage) {
+    public Monstre(int coordx, int coordy, int width, int height, int vitesse, int angle, int health, int damage) {
         super(coordx, coordy, width, height, vitesse, angle, health, damage);
     }
 

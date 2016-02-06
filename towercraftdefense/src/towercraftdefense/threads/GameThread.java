@@ -8,7 +8,7 @@ package towercraftdefense.threads;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import towercraftdefense.manager.OuvrierManager;
+import towercraftdefense.manager.EntiteMobileManager;
 
 /**
  *
@@ -24,7 +24,6 @@ public class GameThread {
         
         threads.add(new Thread(() -> {
             while (threads.get(0).isAlive()) {
-                Move();
                 if(stop){
                     try {
                         Thread.sleep(99999999);
@@ -32,6 +31,7 @@ public class GameThread {
                         Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+                Move();
             }
         }));
     }
@@ -59,7 +59,7 @@ public class GameThread {
     }
     
     private static void Move() {
-        OuvrierManager.gestionMouvemenent();
+        EntiteMobileManager.gestionMouvemenent();
         
         try {
             Thread.sleep(20);

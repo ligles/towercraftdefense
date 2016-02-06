@@ -11,8 +11,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
-import towercraftdefense.manager.OuvrierManager;
-import towercraftdefense.manager.StructureManager;
+import towercraftdefense.manager.EntiteMobileManager;
+import towercraftdefense.manager.EntiteManager;
 import towercraftdefense.manager.ZoneManager;
 /**
  *
@@ -34,14 +34,14 @@ public class Map extends JPanel {
             });
         }
         
-        if(StructureManager.getClone() != null) {
-            StructureManager.getClone().stream().forEach((structure) -> {
+        if(EntiteManager.getClone() != null) {
+            EntiteManager.getClone().stream().forEach((structure) -> {
                 structure.draw(g2);
             });
         }
         
-        if(OuvrierManager.getClone() != null) {
-            OuvrierManager.getClone().stream().forEach((entite) -> {
+        if(EntiteMobileManager.getClone() != null) {
+            EntiteMobileManager.getClone().stream().forEach((entite) -> {
                 entite.draw(g2);
             }); 
         }

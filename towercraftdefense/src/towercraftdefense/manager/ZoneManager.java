@@ -5,14 +5,9 @@
  */
 package towercraftdefense.manager;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
-import javax.sql.rowset.Predicate;
 import towercraftdefense.bo.Zone;
 import towercraftdefense.enumeration.Style;
-import towercraftdefense.jeu.Configuration;
 
 /**
  *
@@ -23,8 +18,7 @@ public class ZoneManager {
     private static final int nbrZonesX = 50;
     private static int nbrZonesY;
     private static int nbrZones;
-
-    
+  
     
     public static void init(){
         // dessine les zones
@@ -33,11 +27,12 @@ public class ZoneManager {
         nbrZonesY = UIManager.getFenetre().getSize().height/Zone.size;
         nbrZones = nbrZonesX * nbrZonesY;   
         int saveX = 0, saveY = 0;
+        // Création des zones dans tout le canvas
         for(int i = 0 ; i < nbrZones; i++)
         {
             if(saveX < UIManager.getFenetre().getSize().width)
             {
-                zones.add(new Zone(saveX, saveY, true, true, false,false));
+                zones.add(new Zone(saveX, saveY, true, false, false, false));
                 saveX += Zone.size;
             }
             else
@@ -45,7 +40,20 @@ public class ZoneManager {
                 saveY = saveY + Zone.size;
                 saveX = 0;
             }
-        }     
+        }
+        
+        zonesChemin().stream().forEach((zone) -> {
+            zone.isWalkable = true;
+        });
+        zonesBase().stream().forEach((zone) -> {
+            zone.isBuildable = true;
+        });
+        zonesCombat().stream().forEach((zone) -> {
+            zone.isBuildable = true;
+        });
+        zonesRessource().stream().forEach((zone) -> {
+            zone.isFarmable = true;
+        });
     }
 
     public static void update(){
@@ -53,7 +61,7 @@ public class ZoneManager {
             int saveX = 0, saveY = 0;
             if(saveX < UIManager.getFenetre().getSize().width)
             {
-                zone = new Zone(saveX, saveY, true, true, false,false);
+                zone = new Zone(saveX, saveY, true, true, true, true);
                 saveX += Zone.size;
             }
             else
@@ -69,64 +77,80 @@ public class ZoneManager {
         for (Zone zone : zones) {
             double maxX = zone.x + Zone.size;
             double maxY = zone.y + Zone.size;
-            if(x > zone.x && y > zone.y && x < maxX && y < maxY)
+            if(x >= zone.x && y >= zone.y && x < maxX && y < maxY)
                 return zone;
         }
         
         return null;
     }
     
+    public static int getNbrZonesX() {
+        return nbrZonesX;
+    }
+
+    public static int getNbrZonesY() {
+        return nbrZonesY;
+    }
+
+    public static int getNbrZones() {
+        return nbrZones;
+    }
+    
+    public static ArrayList<Zone> rangeZonesX(int startZone, int endZone){
+        ArrayList<Zone> range = new ArrayList<>();
+        
+        // Récupération des zones située à droite de l'écran
+        zones.stream().filter((zone) -> (zone.x >= Zone.size(startZone) && zone.x <= Zone.size(endZone))).forEach((zone) -> {
+            range.add(zone);
+        });
+        
+        return range;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public static ArrayList<Zone> zonesBase(){
+        // Entre les 30ieme et 40ieme zones sur l'axe des X
+        return rangeZonesX(30, 40);
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public static ArrayList<Zone> zonesCombat(){
+        // Entre les 10ieme et 30ieme zones sur l'axe des X
+        return rangeZonesX(10, 30);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static ArrayList<Zone> zonesChemin(){
+        // Entre les 30ieme et 40ieme zones sur l'axe des X
+        return rangeZonesX(0, 1);
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public static ArrayList<Zone> zonesRessource(){
+        // Entre les 30ieme et 40ieme zones sur l'axe des X
+        return rangeZonesX(40, 50);
+    }
+    
+           
+    
     public static Zone getAleaZone(){
-        ArrayList<Zone> pZones = new ArrayList<>();
-        
-        // Récupération des zones située à droite de l'écran
-        zones.stream()
-                .forEach((zone) -> {
-            pZones.add(zone);
-        });
-        
-        return pZones.get(new Random().nextInt(pZones.size()));
+        return zones.get(new Random().nextInt(zones.size()));
     }
     
-    // Retourne une zone de la map ou l'on peut construire une base
-    public static Zone aleaBaseZone() {
-        Zone aleaZone;
-        ArrayList<Zone> baseZones = new ArrayList<>();
-        List<Zone> baseValidZones;
-        
-        // Récupération des zones située à droite de l'écran
-        zones.stream().filter((zone) -> (zone.x > 2*UIManager.getFenetre().getWidth()/3)).forEach((zone) -> {
-            baseZones.add(zone);
-        });
-        
-        // Vérification si la zone trouvée peut bien acceuillir la base
-        baseValidZones = baseZones.stream()
-                .filter(zone -> Configuration.validConstruct(zone, Configuration.planBase()))
-                .collect(Collectors.toList());
-        
-        aleaZone = baseValidZones.get(new Random().nextInt(baseValidZones.size()));
-        
-        return aleaZone;
-    }
-    
-    public static Zone getBaseZone() {
-        Zone baseZone;
-        ArrayList<Zone> baseZones = new ArrayList<>();
-        List<Zone> baseValidZones;
-        
-        // Récupération des zones située à droite de l'écran
-        zones.stream().filter((zone) -> (zone.x > 2*UIManager.getFenetre().getWidth()/3)).forEach((zone) -> {
-            baseZones.add(zone);
-        });
-        
-        // Vérification si la zone trouvée peut bien acceuillir la base
-        baseValidZones = baseZones.stream()
-                .filter(zone -> Configuration.validConstruct(zone, Configuration.planBase()))
-                .collect(Collectors.toList());
-        
-        baseZone = baseValidZones.get(150);
-        
-        return baseZone;
+    public static Zone getAleaZone(ArrayList<Zone> range){
+        return range.get(new Random().nextInt(range.size()));
     }
     
     public static ArrayList<Zone> getClone(){
@@ -142,7 +166,7 @@ public class ZoneManager {
         Zone hoverZone = getZone(x, y);
         
         if(lastHoverZone != null && hoverZone != lastHoverZone)
-            lastHoverZone.setStyle(Style.Normal);
+            lastHoverZone.setStyle(Style.Default);
         if(hoverZone != null && hoverZone != lastHoverZone){
             hoverZone.setStyle(Style.Highlight);
             lastHoverZone = hoverZone;

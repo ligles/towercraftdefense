@@ -1,34 +1,43 @@
 package towercraftdefense.bo.environnement;
 
-import java.io.IOException;
 import towercraftdefense.bo.biosphere.Ouvrier;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import towercraftdefense.bo.Entite;
+import java.util.List;
+import java.util.stream.Collectors;
 import towercraftdefense.bo.Zone;
-import towercraftdefense.enumeration.Direction;
+import towercraftdefense.manager.ZoneManager;
 
 /**
  * Created by SDOUGAMEHDI on 12/01/2016.
  */
 public class Base extends Structure {
     
-    Ressource ressources;
+    int ressources;
     ArrayList<Ouvrier> ouvriers;
 
-    public Base(Ressource ressources, Zone zone, ArrayList<Direction> plan)
+    public Base(int ressources, Plan plan)
     {
-        super(zone, plan);
+        super(plan);
         this.ressources = ressources;
         this.ouvriers = new ArrayList<>();
-        try {
-            this.img = ImageIO.read(towercraftdefense.ressources.Ressource.class.getResource("base.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(Entite.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.img = towercraftdefense.ressources.Ressource.loadImage("base.png");
+    }    
+    
+    public static Zone getBaseZone() {
+        Zone baseZone;
+        ArrayList<Zone> baseZones = ZoneManager.zonesBase();
+        List<Zone> baseValidZones;
+        
+        
+        // Vérification si la zone trouvée peut bien acceuillir la base
+        baseValidZones = baseZones.stream()
+                .filter(zone -> Structure.validBuild(Plan.planBase(zone)))
+                .collect(Collectors.toList());
+        
+        baseZone = baseValidZones.get(75);
+        
+        return baseZone;
     }
     
 }

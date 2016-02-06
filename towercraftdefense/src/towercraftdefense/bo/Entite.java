@@ -12,11 +12,10 @@ import java.awt.Image;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import towercraftdefense.bo.environnement.Plan;
 import towercraftdefense.observers.Observer;
-import towercraftdefense.enumeration.Direction;
 import towercraftdefense.interfaces.IDrawable;
 import towercraftdefense.interfaces.IObservable;
-import towercraftdefense.jeu.Configuration;
 import towercraftdefense.observers.Repainter;
 
 /**
@@ -28,7 +27,7 @@ public class Entite extends Rectangle2D.Double implements IDrawable, IObservable
     
     // gestion des zones        
     private ArrayList<Zone> zones;
-    private ArrayList<Direction> plan;
+    protected Plan plan;
     
     public Entite(double coordx, double coordy, double width, double height) {
         super(coordx, coordy, width, height);
@@ -36,57 +35,11 @@ public class Entite extends Rectangle2D.Double implements IDrawable, IObservable
         this.notifyObserver();
     }
 
-    public Entite(Zone zone, ArrayList<Direction> plan) {
-        super(zone.x, zone.y, zone.width, zone.height);
+    public Entite(Plan plan) {
+        super();
         this.zones = new ArrayList<>();
-        zones.add(zone);
         this.plan = plan;                                                   
         this.addObserver(new Repainter());
-    }
-    
-    // Construction de l'entite selon le plan donné
-    public boolean construct(){
-        // Construction seulement s'il y a plan de plusieurs zones
-        if(Configuration.validConstruct(zones.get(0), plan))
-        {
-            zones.get(0).isFree = false;
-            if(plan.size() > 1)
-            {
-                // Lecture du plan et récupération de la liste des zones constituant l'entite
-                Zone nzone = zones.get(0);
-                for(Direction direction : plan)
-                {                
-                    nzone = nzone.getZone(direction);
-                    nzone.isFree = false;
-                    zones.add(nzone);
-                }
-
-                zones.stream().map((zone) -> {
-                    if(this.x > zone.x)
-                    {
-                        this.x -= Zone.size;
-                        this.width += Zone.size;
-                    }
-                    return zone;
-                }).map((zone) -> {
-                    if(this.y > zone.y)
-                    {
-                        this.y -= Zone.size;
-                        this.height += Zone.size;
-                    }
-                    return zone;
-                }).map((zone) -> {
-                    if(this.x + this.width < zone.x + Zone.size)
-                        this.width += Zone.size;
-                    return zone;
-                }).filter((zone) -> (this.y + this.height < zone.y + Zone.size)).forEach((_item) -> {
-                    this.height += Zone.size;
-                });
-            }
-            this.notifyObserver();
-            return true;
-        }
-        return false;
     }
     
     public double getCoordx() {

@@ -46,7 +46,7 @@ public class UIManager {
 
     public static void recalculateMap() {
         ZoneManager.update();
-        StructureManager.init();
+        EntiteManager.init();
     }
     
     

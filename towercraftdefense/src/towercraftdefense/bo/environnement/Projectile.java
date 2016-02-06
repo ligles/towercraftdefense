@@ -11,7 +11,7 @@ public class Projectile  extends EntiteMobile{
     
     private int degats;
 
-    public Projectile(double coordx, double coordy, double width, double height, double vitesse, double angle) {
+    public Projectile(int coordx, int coordy, int width, int height, int vitesse, int angle) {
         super(coordx, coordy, width, height, vitesse, angle);
     }
 

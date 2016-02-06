@@ -5,6 +5,7 @@
  */
 package towercraftdefense.manager;
 import java.util.ArrayList;
+import towercraftdefense.bo.EntiteMobile;
 
 import towercraftdefense.bo.biosphere.Ouvrier;
 
@@ -12,17 +13,17 @@ import towercraftdefense.bo.biosphere.Ouvrier;
  *
  * @author ligles
  */
-public class OuvrierManager {
-    private static ArrayList<Ouvrier> ouvriers;
+public class EntiteMobileManager {
+    private static ArrayList<EntiteMobile> ouvriers;
     
 
     
     public static void init(){
         ouvriers = new ArrayList<>();
         
-        ouvriers.add(new Ouvrier(150, 170, 60, 60,1,45,10,4));
-        ouvriers.add(new Ouvrier(120, 120, 60, 60,1.2,25,10,4));
-        ouvriers.add(new Ouvrier(200, 260, 60, 60,2.5,40,10,4));
+        ouvriers.add(new Ouvrier(150, 170, 60, 60, 10, 45));
+        ouvriers.add(new Ouvrier(120, 120, 60, 60, 12, 25));
+        ouvriers.add(new Ouvrier(200, 260, 60, 60, 25, 40));
     }
     
     public static void gestionMouvemenent(){
@@ -33,11 +34,10 @@ public class OuvrierManager {
     }
     
     
-    public static void updateTarget(Ouvrier entite)
+    public static void updateTarget(EntiteMobile entite)
     {
 
-
-        double vitesse = entite.getVitesse();
+        double vitesse = entite.getVitesse()/10;
         double x = Math.cos(entite.getAngle() * (Math.PI / 180)) * vitesse; // donne la position x future en fonction de la vitesse
         double y = Math.sin(entite.getAngle() * (Math.PI / 180)) * vitesse; // donne la position y future en fonction de la vitesse
        /*

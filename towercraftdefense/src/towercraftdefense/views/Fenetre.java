@@ -7,6 +7,7 @@ package towercraftdefense.views;
 
 import towercraftdefense.bo.Zone;
 import towercraftdefense.manager.PartieManager;
+import towercraftdefense.manager.UIManager;
 import towercraftdefense.manager.ZoneManager;
 import towercraftdefense.threads.GameThread;
 
@@ -122,6 +123,8 @@ public class Fenetre extends javax.swing.JFrame {
         if(!PartieManager.isStarted())
             PartieManager.start();
         this.repaint();
+        // Affichage de la fenêtre
+        UIManager.getFenetre().map.setVisible(true);
     }//GEN-LAST:event_clickStart
 
     private void mapMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mapMouseEntered

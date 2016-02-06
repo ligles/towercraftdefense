@@ -10,5 +10,5 @@ package towercraftdefense.enumeration;
  * @author mehdi
  */
 public enum Style {
-    Normal, Highlight
+    Normal, Highlight, Chemin, Default
 }

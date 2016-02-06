@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import towercraftdefense.ressources.Ressource;
 
 /**
  *
@@ -20,7 +21,15 @@ public class EntiteMobile extends Entite {
     
     private double vitesse;
     private double angle;
-
+    
+    public EntiteMobile(int coordx, int coordy, int width, int height, int vitesse, int angle) {
+         super(coordx, coordy, width, height);
+        
+         this.vitesse = vitesse;
+         this.angle = angle;
+         this.img = Ressource.loadImage("smile.png");
+    }    
+    
     public double getVitesse() {
         return vitesse;
     }
@@ -38,17 +47,5 @@ public class EntiteMobile extends Entite {
         this.angle = angle;
         notifyObserver();
     }
-    
-    
-    public EntiteMobile(double coordx, double coordy, double width, double height, double vitesse, double angle) {
-         super(coordx, coordy, width, height);
-        
-         this.vitesse = vitesse;
-         this.angle = angle;
-         try {
-            img = ImageIO.read(towercraftdefense.ressources.Ressource.class.getResource("smile.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(Entite.class.getName()).log(Level.SEVERE, null, ex);
-        }   
-    }    
+
 }

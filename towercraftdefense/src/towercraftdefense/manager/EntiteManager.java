@@ -6,17 +6,17 @@
 package towercraftdefense.manager;
 
 import java.util.ArrayList;
-import towercraftdefense.bo.environnement.Structure;
+import towercraftdefense.bo.Entite;
 
 /**
  *
  * @author SDOUGAMEHDI
  */
-public class StructureManager {
-    public static ArrayList<Structure> structures; 
+public class EntiteManager {
+    public static ArrayList<Entite> entites; 
     public static void init()
     {
-        structures = new ArrayList<>(); 
+        entites = new ArrayList<>(); 
         
     }
     
@@ -24,10 +24,10 @@ public class StructureManager {
        
    }
     
-    public static ArrayList<Structure> getClone(){
-        ArrayList<Structure> clone = null;
-        if(structures != null)
-            clone = (ArrayList<Structure>) structures.clone();
+    public static ArrayList<Entite> getClone(){
+        ArrayList<Entite> clone = null;
+        if(entites != null)
+            clone = (ArrayList<Entite>) entites.clone();
         
         return clone;
     }

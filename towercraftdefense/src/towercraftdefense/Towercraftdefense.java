@@ -6,9 +6,9 @@
 package towercraftdefense;
 
 import javax.swing.JFrame;
-import towercraftdefense.manager.OuvrierManager;
+import towercraftdefense.manager.EntiteMobileManager;
 import towercraftdefense.manager.PartieManager;
-import towercraftdefense.manager.StructureManager;
+import towercraftdefense.manager.EntiteManager;
 import towercraftdefense.manager.UIManager;
 import towercraftdefense.manager.ZoneManager;
 import towercraftdefense.threads.GameThread;
@@ -34,8 +34,8 @@ public class Towercraftdefense {
         
         //test    
         ZoneManager.init();  
-        StructureManager.init();
-        OuvrierManager.init();
+        EntiteManager.init();
+        EntiteMobileManager.init();
         
     }
 }
