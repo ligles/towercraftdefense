@@ -4,25 +4,22 @@
  * and open the template in the editor.
  */
 package towercraftdefense.manager;
-
 import java.util.ArrayList;
 import towercraftdefense.bo.Entite;
 
+
 /**
  *
- * @author SDOUGAMEHDI
+ * @author ligles
  */
 public class EntiteManager {
-    public static ArrayList<Entite> entites; 
-    public static void init()
-    {
-        entites = new ArrayList<>(); 
-        
-    }
+    public static ArrayList<Entite> entites;
     
-   public static void animate(){
-       
-   }
+
+    
+    public static void init(){
+        entites = new ArrayList<>();
+    }    
     
     public static ArrayList<Entite> getClone(){
         ArrayList<Entite> clone = null;
@@ -31,4 +28,5 @@ public class EntiteManager {
         
         return clone;
     }
+    
 }

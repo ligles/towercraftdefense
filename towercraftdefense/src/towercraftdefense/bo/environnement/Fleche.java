@@ -1,14 +1,16 @@
 package towercraftdefense.bo.environnement;
 
-import java.awt.Image;
-
 /**
  * Created by SDOUGAMEHDI on 12/01/2016.
  */
 public class Fleche extends Projectile {
 
-    public Fleche(int coordx, int coordy, int width, int height, int vitesse, int angle) {
-        super(coordx, coordy, width, height, vitesse, angle);
+    public Fleche(int x, int y) {
+        super(x, y);
+        this.height = 10;
+        this.width = 10;
+        this.vitesse = 30;
+        this.img = towercraftdefense.ressources.Ressource.loadImage("fleche.png");
     }
 
     

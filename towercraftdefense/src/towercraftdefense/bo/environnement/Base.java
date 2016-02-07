@@ -5,6 +5,7 @@ import towercraftdefense.bo.biosphere.Ouvrier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import towercraftdefense.bo.Entite;
 import towercraftdefense.bo.Zone;
 import towercraftdefense.manager.ZoneManager;
 
@@ -29,10 +30,9 @@ public class Base extends Structure {
         ArrayList<Zone> baseZones = ZoneManager.zonesBase();
         List<Zone> baseValidZones;
         
-        
         // Vérification si la zone trouvée peut bien acceuillir la base
         baseValidZones = baseZones.stream()
-                .filter(zone -> Structure.validBuild(Plan.planBase(zone)))
+                .filter(zone -> Plan.validPlan(Plan.planBase(zone), new Base(0, null)))
                 .collect(Collectors.toList());
         
         baseZone = baseValidZones.get(75);

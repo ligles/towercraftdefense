@@ -9,17 +9,21 @@ import towercraftdefense.bo.biosphere.Personnage;
 
 import java.util.ArrayList;
 import towercraftdefense.bo.Zone;
+import towercraftdefense.bo.environnement.Decoration;
 import towercraftdefense.bo.environnement.Plan;
 import towercraftdefense.bo.environnement.Structure;
 import towercraftdefense.manager.EntiteManager;
+import towercraftdefense.manager.EntiteMobileManager;
 import towercraftdefense.manager.ZoneManager;
 
 /**
  * Created by SDOUGAMEHDI on 12/01/2016.
  */
 public class Partie {
+    int maxTour = 6, maxRessources = 4, maxDecorations = 6;
     ArrayList<Personnage> personnages;
     ArrayList<Ressource> ressources;
+    ArrayList<Decoration> decorations;
     ArrayList<Tour> tours;
     Joueur joueur;
     Base base;
@@ -33,26 +37,38 @@ public class Partie {
         this.personnages = new ArrayList<>();
         this.ressources = new ArrayList<>();
         this.tours = new ArrayList<>();
+        this.decorations = new ArrayList<>();
         createBase();
         createChemin();
         createRessources();
+        createDecorations();
     }
     
     public void createBase() {
         if(base == null) {
             Zone zoneBase = Base.getBaseZone();
             this.base = new Base(200, Plan.planBase(zoneBase));
-            this.base.construct();
-            EntiteManager.entites.add(base);
+            base.create();
         }
     }
     
     public void createTour(Zone zoneTour){
-        Tour tour = new Tour(Plan.planTour(zoneTour), 0);
-        tour.construct();
-        this.tours.add(tour);
-        EntiteManager.entites.add(tour);
+        if(tours.size() < maxTour){
+            Tour tour = new Tour(Plan.planTour(zoneTour));
+            if(tour.create()){
+                tour.survey();
+                this.tours.add(tour);
+            }
+        }
     }
+    
+        
+    public void createPersonnage(Personnage personnage) {
+        if(personnage.create()){
+            personnages.add(personnage);
+        }
+    }
+    
     
     public void createChemin(){
         Zone depart = Chemin.getCheminZone();
@@ -73,34 +89,50 @@ public class Partie {
                 lastRectangle = new Rectangle(lastRectangle.x + lastRectangle.width, y, Zone.size(2), height);
             }
             else if (i == 1)
-                lastRectangle = new Rectangle(lastRectangle.x + lastRectangle.width, lastRectangle.y, Zone.size(16), Zone.size(2));
+                lastRectangle = new Rectangle(lastRectangle.x + lastRectangle.width, lastRectangle.y, Zone.size(18), Zone.size(2));
             else
-                lastRectangle = new Rectangle(lastRectangle.x + lastRectangle.width, lastRectangle.y + lastRectangle.height, Zone.size(16), Zone.size(2));
+                lastRectangle = new Rectangle(lastRectangle.x + lastRectangle.width, lastRectangle.y + lastRectangle.height, Zone.size(18), Zone.size(2));
         }
         this.chemin = new Chemin(planChemin);
-        chemin.discover();
-        EntiteManager.entites.add(this.chemin);
+        chemin.create();
     }
     
     private void createRessources() {
-        for(int i = 0 ; i < 4 ; i++){
+        for(int i = 0 ; i < maxRessources ; i++){
             Zone zone = ZoneManager.getAleaZone(ZoneManager.zonesRessource());
-            while(!Ressource.validRessource(Plan.planRessource(zone)))
-                zone = ZoneManager.getAleaZone(ZoneManager.zonesRessource());
-           
             Ressource ressource = new Ressource(4000, Plan.planRessource(zone));
-            ressource.farm();
+            while(!ressource.create())
+            {
+                zone = ZoneManager.getAleaZone(ZoneManager.zonesRessource());
+                ressource = new Ressource(4000, Plan.planRessource(zone));
+            }
             this.ressources.add(ressource);
-            EntiteManager.entites.add(ressource);
         }
     }
     
+    public void createDecorations(){
+        if(decorations.size() < maxDecorations){
+            for(int i = 0 ; i < maxDecorations ; i++){
+                Zone zone = ZoneManager.getAleaZone();
+                Decoration decoration = new Decoration(Plan.planDecoration(zone));
+                decoration.create();
+                decorations.add(decoration);
+                EntiteManager.entites.add(decoration);
+            }
+        }
+    }
+    
+
     public void charger(){
         
     }
     
     public void sauvegarder(){
         
+    }
+
+    public Chemin getChemin() {
+        return chemin;
     }
     
     public ArrayList<Structure> getStructures()
@@ -112,5 +144,6 @@ public class Partie {
         });
         return structures;
     }
+
 
 }

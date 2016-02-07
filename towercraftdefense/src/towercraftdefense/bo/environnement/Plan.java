@@ -7,6 +7,7 @@ package towercraftdefense.bo.environnement;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import towercraftdefense.bo.Entite;
 import towercraftdefense.bo.Zone;
 import towercraftdefense.enumeration.Style;
 import towercraftdefense.manager.ZoneManager;
@@ -59,50 +60,50 @@ public class Plan {
         this.height = maxY - minY;
     }
     
-    
-    public boolean build() {
-        boolean buildable = !zones.isEmpty() && Structure.validBuild(this);
-        if(buildable){
+    public boolean apply(Entite entite){
+        boolean avaible = Plan.validPlan(this, entite);
+        
+        if(avaible){
             zones.stream().forEach((zone) -> {
                 if(zone != null){
-                    ZoneManager.getZone((int)zone.x, (int)zone.y).isFree = false;
-                    ZoneManager.getZone((int)zone.x, (int)zone.y).isBuildable = false;
+                    if(entite instanceof Structure){
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isFree = false;
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isWalkable = false;
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isBuildable = false;
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isFarmable = false;
+                    }
+                    else if(entite instanceof Chemin){
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isFree = true;
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isWalkable = true;
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isBuildable = false;
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isFarmable = false;
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).setStyle(Style.Chemin);
+                    }
+                    else if(entite instanceof Ressource)
+                    {
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isFree = false;
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isWalkable = false;
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isBuildable = false;
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isFarmable = true;
+                    }
+                    else if(entite instanceof Decoration){
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isFree = false;
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isWalkable = false;
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isBuildable = false;
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isFarmable = false;
+                    }
+                    else{
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isFree = false;
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isWalkable = false;
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isBuildable = false;
+                        ZoneManager.getZone((int)zone.x, (int)zone.y).isFarmable = false;
+                   }
                 }
             });
         }
-        return buildable;
+        return avaible;
     }
-    
-    public boolean way() {
-        boolean wayable = !zones.isEmpty() && Chemin.validWay(this);
-        if(wayable){
-            zones.stream().forEach((zone) -> {
-                if(zone != null){
-                    ZoneManager.getZone((int)zone.x, (int)zone.y).isFree = true;
-                    ZoneManager.getZone((int)zone.x, (int)zone.y).isWalkable = true;
-                    ZoneManager.getZone((int)zone.x, (int)zone.y).isBuildable = false;
-                    ZoneManager.getZone((int)zone.x, (int)zone.y).setStyle(Style.Chemin);
-                }
-            });
-        }
-        return wayable;
-    }
-    
-    public boolean mine(){
-        boolean farmable = !zones.isEmpty() && Ressource.validRessource(this);
-        if(farmable){
-            zones.stream().forEach((zone) -> {
-                if(zone != null){
-                    ZoneManager.getZone((int)zone.x, (int)zone.y).isFree = false;
-                    ZoneManager.getZone((int)zone.x, (int)zone.y).isWalkable = false;
-                    ZoneManager.getZone((int)zone.x, (int)zone.y).isBuildable = false;
-                    ZoneManager.getZone((int)zone.x, (int)zone.y).isFarmable = true;
-                }
-            });
-        }
-        return farmable;
-    }
-    
+
     public ArrayList<Zone> getZones() {
         return zones;
     }
@@ -121,7 +122,7 @@ public class Plan {
     
     public static Plan planBase(Zone zone){
         Plan plan = new Plan();  
-        plan.addRectangle(new Rectangle((int)zone.x, (int)zone.y, Zone.size(4), Zone.size(3)));
+        plan.addRectangle(new Rectangle((int)zone.x, (int)zone.y, Zone.size(5), Zone.size(4)));
         plan.generate();
         return plan;
     }
@@ -140,15 +141,37 @@ public class Plan {
         return plan;
     }
     
-    public static boolean validPlan(Plan plan){
+    public static Plan planDecoration(Zone zone){
+        Plan plan = new Plan();
+        plan.addRectangle(new Rectangle((int)zone.x, (int)zone.y, Zone.size, Zone.size));
+        plan.generate();
+        return plan;
+    }
+    
+    public static boolean validPlan(Plan plan, Entite entite){
         boolean avaible = true;
         plan.generate();
         if(plan.getZones() != null && plan.getZones().size() > 0){
             for(Zone zone : plan.getZones()){
                 if(zone != null){
                     Zone zoneMap = ZoneManager.getZone((int)zone.x, (int)zone.y);
-                    if(zoneMap == null || !zoneMap.isFree)
-                        avaible = false;
+                    if(entite instanceof Chemin){
+                        if(zoneMap == null || !zoneMap.isFree)
+                            avaible = false;
+                    }
+                    else if (entite instanceof Structure){
+                        if(zoneMap == null || !zoneMap.isFree || !zoneMap.isBuildable)
+                            avaible = false;
+                    }
+                    else if(entite instanceof Ressource || entite instanceof Decoration){
+                        if(zoneMap == null || !zoneMap.isFree || zoneMap.isWalkable)
+                            avaible = false;
+                    }
+                    else
+                    {
+                        if(zoneMap == null || !zoneMap.isFree)
+                            avaible = false;
+                    }
                 }
                 else avaible = false;
             }

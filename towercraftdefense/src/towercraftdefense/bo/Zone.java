@@ -11,6 +11,7 @@ import java.awt.Image;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Optional;
+import towercraftdefense.bo.biosphere.Personnage;
 import towercraftdefense.enumeration.Direction;
 import towercraftdefense.enumeration.Style;
 import towercraftdefense.manager.ZoneManager;
@@ -30,10 +31,12 @@ public class Zone extends Rectangle2D.Double implements IDrawable, IObservable{
     public boolean isBuildable;
     public boolean isFarmable;
     public boolean isFree;
+    private int maxPersonnages;
     private Style style;
     private Style defaultStyle;
     Image img;
     private ArrayList<Observer> observers;
+    private ArrayList<Personnage> personnages;
     
     public static int size = 20;
 
@@ -43,11 +46,13 @@ public class Zone extends Rectangle2D.Double implements IDrawable, IObservable{
         this.isBuildable = isBuildable;
         this.isFarmable = isFarmable;
         this.isWalkable = isWalkable;
+        this.maxPersonnages = 3;
         this.style = Style.Normal;
         this.defaultStyle = Style.Normal;
         this.observers = new ArrayList<>();
+        this.personnages = new ArrayList<>();
         addObserver(new Repainter());
-        this.img = Ressource.loadImage("zone.png");
+        this.img = Ressource.loadImage("zone_grass.png");
     }
       
     
@@ -57,11 +62,28 @@ public class Zone extends Rectangle2D.Double implements IDrawable, IObservable{
         this.isBuildable = false;
         this.isFarmable = false;
         this.isWalkable = true; 
+        this.maxPersonnages = 3;
         this.style = Style.Normal;
         this.defaultStyle = Style.Normal;
         this.observers = new ArrayList<>();
-        addObserver(new Repainter());
-        this.img = Ressource.loadImage("zone.png");
+        this.personnages = new ArrayList<>();
+        this.addObserver(new Repainter());
+        this.img = Ressource.loadImage("zone_grass.png");
+    }
+    
+    public boolean populate(Personnage personnage){
+        boolean populated = false;
+        if(personnage != null && personnages.size() <= maxPersonnages){
+            int nbrPerso = personnages.size();
+            int placement = Zone.size/(nbrPerso+1);
+            this.personnages.add(personnage);
+            for(int i = 1 ; i < personnages.size()+1 ; i ++){
+                personnage.setX(this.x + i*placement);
+                personnage.setY(this.y + Zone.size/2);
+            }
+            populated = true;
+        }
+        return populated;
     }
     
     public Zone getZone(Direction d){
@@ -115,7 +137,7 @@ public class Zone extends Rectangle2D.Double implements IDrawable, IObservable{
         if(null != style)
             switch (style) {
             case Normal:
-                this.img = Ressource.loadImage("zone.png");
+                this.img = Ressource.loadImage("zone_grass.png");
                 this.defaultStyle = Style.Normal;
                 break;
             case Highlight:

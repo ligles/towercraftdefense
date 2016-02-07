@@ -35,14 +35,14 @@ public class Map extends JPanel {
         }
         
         if(EntiteManager.getClone() != null) {
-            EntiteManager.getClone().stream().forEach((structure) -> {
-                structure.draw(g2);
+            EntiteManager.getClone().stream().forEach((entite) -> {
+                entite.draw(g2);
             });
         }
         
         if(EntiteMobileManager.getClone() != null) {
-            EntiteMobileManager.getClone().stream().forEach((entite) -> {
-                entite.draw(g2);
+            EntiteMobileManager.getClone().stream().forEach((entiteMobile) -> {
+                entiteMobile.draw(g2);
             }); 
         }
     }

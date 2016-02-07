@@ -23,7 +23,7 @@ public class Ressource {
     public static Image loadImage(String imgname) {
         Image img = null;
         try {
-           img = ImageIO.read(towercraftdefense.ressources.Ressource.class.getResource(imgname));
+           img = ImageIO.read(towercraftdefense.ressources.Ressource.class.getResource("images/" + imgname));
         } catch (IOException ex) {
             Logger.getLogger(Ressource.class.getName()).log(Level.SEVERE, null, ex);
         }   

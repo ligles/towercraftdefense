@@ -1,18 +1,22 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package towercraftdefense.bo.environnement;
 
 import towercraftdefense.bo.Entite;
-import towercraftdefense.bo.Zone;
-import towercraftdefense.manager.ZoneManager;
 
 /**
- * Created by SDOUGAMEHDI on 12/01/2016.
+ *
+ * @author mehdi
  */
-public abstract class  Structure extends Entite {
-
-    public Structure(Plan plan) {
+public class Decoration extends Entite{
+    public Decoration(Plan plan) {
         super(plan);
+        this.img = towercraftdefense.ressources.Ressource.loadImage("rocher.png");
     }
-
+    
     @Override
     public boolean create() {
         super.create(); 
@@ -29,6 +33,4 @@ public abstract class  Structure extends Entite {
         
         return created;
     }
-    
-    
 }

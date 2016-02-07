@@ -10,8 +10,8 @@ import towercraftdefense.manager.EntiteMobileManager;
 import towercraftdefense.manager.PartieManager;
 import towercraftdefense.manager.EntiteManager;
 import towercraftdefense.manager.UIManager;
+import towercraftdefense.manager.VagueManager;
 import towercraftdefense.manager.ZoneManager;
-import towercraftdefense.threads.GameThread;
 
 
 /**
@@ -26,16 +26,15 @@ public class Towercraftdefense {
      */
     public static void main(String[] args) {
         UIManager.init();
-        
-        // Lancement du thread de rafraichissement du canvas
-        GameThread.init();
+
         // Initialisation du gestionnaire de parties
-        PartieManager.init(); 
+        PartieManager.init();
         
         //test    
         ZoneManager.init();  
         EntiteManager.init();
         EntiteMobileManager.init();
+        VagueManager.init();
         
     }
 }

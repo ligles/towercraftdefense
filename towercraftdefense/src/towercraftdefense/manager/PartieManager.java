@@ -25,10 +25,17 @@ public class PartieManager {
     
     public static void start(){
         partie.init();
+        VagueManager.start();
         started = true;
+    }
+    
+    
+    public static void stop() {
+       VagueManager.stop();
     }
 
     public static boolean isStarted() {
         return started;
     }
+
 }

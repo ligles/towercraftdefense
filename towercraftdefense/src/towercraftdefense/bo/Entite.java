@@ -16,6 +16,7 @@ import towercraftdefense.bo.environnement.Plan;
 import towercraftdefense.observers.Observer;
 import towercraftdefense.interfaces.IDrawable;
 import towercraftdefense.interfaces.IObservable;
+import towercraftdefense.manager.EntiteManager;
 import towercraftdefense.observers.Repainter;
 
 /**
@@ -41,6 +42,31 @@ public class Entite extends Rectangle2D.Double implements IDrawable, IObservable
         this.plan = plan;                                                   
         this.addObserver(new Repainter());
     }
+    
+    public boolean create(){
+        EntiteManager.entites.add(this);
+        return true;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+        notifyObserver();
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+        notifyObserver();
+    }
+    
+    
     
     public double getCoordx() {
         return this.x;

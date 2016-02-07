@@ -19,13 +19,16 @@ public class Ressource extends Entite {
     public Ressource(int nbRessources, Plan plan) {
         super(plan);
         this.nbRessources = nbRessources;
-        towercraftdefense.ressources.Ressource.loadImage("ressource.jpg");
+        this.img = towercraftdefense.ressources.Ressource.loadImage("ressource.png");
     }
+    
+    @Override
+    public boolean create() {
+        super.create(); 
 
-    public boolean farm(){
         plan.generate();
-        boolean farmable = plan.mine();
-        if(farmable){
+        boolean created = plan.apply(this);
+        if(created){
             this.x = plan.getZones().get(0).x;
             this.y = plan.getZones().get(0).y;
             this.width = plan.getWidth();
@@ -33,24 +36,6 @@ public class Ressource extends Entite {
             this.notifyObserver();
         }
         
-        return farmable;
-    }
-    
-    public static boolean validRessource(Plan plan){   
-        boolean farmable = true;
-        plan.generate();
-        if(plan.getZones() != null && plan.getZones().size() > 0){
-            for(Zone zone : plan.getZones()){
-                if(zone != null){
-                    Zone zoneMap = ZoneManager.getZone((int)zone.x, (int)zone.y);
-                    if(zoneMap == null || !zoneMap.isFree)
-                        farmable = false;
-                }
-                else farmable = false;
-            }
-        }
-        else
-            farmable = false;
-        return farmable;
+        return created;
     }
 }

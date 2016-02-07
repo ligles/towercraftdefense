@@ -140,7 +140,7 @@ public class ZoneManager {
      */
     public static ArrayList<Zone> zonesRessource(){
         // Entre les 30ieme et 40ieme zones sur l'axe des X
-        return rangeZonesX(40, 50);
+        return rangeZonesX(40, 48);
     }
     
            

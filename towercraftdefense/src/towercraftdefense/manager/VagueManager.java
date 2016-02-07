@@ -3,35 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package towercraftdefense.threads;
+package towercraftdefense.manager;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import towercraftdefense.manager.EntiteMobileManager;
+import towercraftdefense.bo.biosphere.Monstre;
 
 /**
  *
- * @author ligles
+ * @author mehdi
  */
-public class GameThread {
+public class VagueManager {
     public static ArrayList<Thread> threads;
     private static boolean started = false;   
     private static boolean stop = false;  
     
     public static void init() {
         threads = new ArrayList<>();
-        
+        createVague(10, 2);
+    }
+    
+    public static void createVague(int waitingSec, int nbrMonstres){
         threads.add(new Thread(() -> {
-            while (threads.get(0).isAlive()) {
-                if(stop){
-                    try {
-                        Thread.sleep(99999999);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                Move();
+            try {
+                Thread.sleep(waitingSec);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(VagueManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            for(int i = 0 ; i < nbrMonstres ; i++){
+                Monstre monstre = new Monstre(PartieManager.partie.getChemin().getDebut(), 50, 10);
+                PartieManager.partie.createPersonnage(monstre);
             }
         }));
     }
@@ -57,22 +59,10 @@ public class GameThread {
         started = false;
         stop = true;
     }
-    
-    private static void Move() {
-        EntiteMobileManager.gestionMouvemenent();
-        
-        try {
-            Thread.sleep(20);
-        } catch (InterruptedException ex) {
-            
-            Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-    }
 
+    
     public static boolean isStarted() {
         return started;
     }
+    
 }
-

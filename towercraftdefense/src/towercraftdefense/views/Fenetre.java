@@ -8,8 +8,8 @@ package towercraftdefense.views;
 import towercraftdefense.bo.Zone;
 import towercraftdefense.manager.PartieManager;
 import towercraftdefense.manager.UIManager;
+import towercraftdefense.manager.VagueManager;
 import towercraftdefense.manager.ZoneManager;
-import towercraftdefense.threads.GameThread;
 
 
 
@@ -20,7 +20,6 @@ import towercraftdefense.threads.GameThread;
 public class Fenetre extends javax.swing.JFrame {
 
     private boolean inPanel = false;
-    private boolean gameStarted = GameThread.isStarted() && PartieManager.isStarted();
     /**
      * Creates new form Fenetre
      */
@@ -113,13 +112,11 @@ public class Fenetre extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void clickStop(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickStop
-        if(GameThread.isStarted())
-            GameThread.stop();
+        if(PartieManager.isStarted())
+            PartieManager.stop();
     }//GEN-LAST:event_clickStop
 
     private void clickStart(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickStart
-        if(!GameThread.isStarted())
-            GameThread.start();
         if(!PartieManager.isStarted())
             PartieManager.start();
         this.repaint();
@@ -136,12 +133,12 @@ public class Fenetre extends javax.swing.JFrame {
     }//GEN-LAST:event_mapMouseExited
 
     private void mapMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mapMouseMoved
-       if(inPanel && GameThread.isStarted() && PartieManager.isStarted())
+       if(inPanel && PartieManager.isStarted())
             ZoneManager.hoverZone(evt.getX(), evt.getY());
     }//GEN-LAST:event_mapMouseMoved
 
     private void mapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mapMouseClicked
-        if(inPanel && GameThread.isStarted() && PartieManager.isStarted())
+        if(inPanel && PartieManager.isStarted())
         {
             Zone zone = ZoneManager.getZone(evt.getX(), evt.getY());
             if (zone != null)

@@ -5,15 +5,15 @@
  */
 package towercraftdefense.interfaces;
 
-import towercraftdefense.bo.Zone;
+import java.awt.Point;
 
 /**
  *
  * @author SDOUGAMEHDI
  */
 public interface IMovable {
-    public void avancer();
-    public void reculer();
-    public Zone aDroite();
-    public Zone aGauche();
+    void avancer();
+    void arret();
+    void go(int x, int y);
+    void arrived();
 }

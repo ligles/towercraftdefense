@@ -1,65 +1,37 @@
 package towercraftdefense.bo.environnement;
 
-import towercraftdefense.jeu.Partie;
-
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Random;
 import towercraftdefense.bo.Entite;
 import towercraftdefense.bo.Zone;
 import towercraftdefense.manager.ZoneManager;
-import static towercraftdefense.manager.ZoneManager.zonesChemin;
 
 /**
  * Created by SDOUGAMEHDI on 12/01/2016.
  */
 public class Chemin extends Entite{
     private int longueur;
-    private ArrayList<Point> listPoint;
+    private Zone debut, fin;
 
-    public Chemin(int longueur) {
-        super(0, 0, 0, 0);
-        this.longueur = longueur;
-    }
-    
     public Chemin(Plan plan){
         super(plan);
-    }
-    
-    
-    public boolean discover() {  
+    }     
+
+    @Override
+    public boolean create() {
+        super.create(); 
+
         plan.generate();
-        boolean discoverable = plan.way();
-        if(discoverable){
-            this.x = plan.getZones().get(0).x;
-            this.y = plan.getZones().get(0).y;
+        boolean created = plan.apply(this);
+        if(created){
+            this.debut = plan.getZones().get(10);
+            this.x = debut.x;
+            this.y = debut.y;
             this.width = plan.getWidth();
             this.height = plan.getHeight();
             this.notifyObserver();
         }
         
-        return discoverable;       
-    }
-
-     
-    
-    public static boolean validWay(Plan plan){
-        boolean avaible = true;
-        plan.generate();
-        if(plan.getZones() != null && plan.getZones().size() > 0){
-            for(Zone zone : plan.getZones()){
-                if(zone != null){
-                    Zone zoneMap = ZoneManager.getZone((int)zone.x, (int)zone.y);
-                    if(zoneMap == null || !zoneMap.isFree)
-                        avaible = false;
-                }
-                else avaible = false;
-            }
-        }
-        else
-            avaible = false;
-        return avaible;
-        
+        return created;
     }
    
     public static Zone getCheminZone() {
@@ -69,6 +41,14 @@ public class Chemin extends Entite{
         cheminZone = cheminZones.get(30);
         
         return cheminZone;
+    }
+
+    public Zone getDebut() {
+        return debut;
+    }
+
+    public Zone getFin() {
+        return fin;
     }
 
      

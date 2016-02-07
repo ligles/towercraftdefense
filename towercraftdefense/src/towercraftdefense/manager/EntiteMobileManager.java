@@ -7,27 +7,22 @@ package towercraftdefense.manager;
 import java.util.ArrayList;
 import towercraftdefense.bo.EntiteMobile;
 
-import towercraftdefense.bo.biosphere.Ouvrier;
 
 /**
  *
  * @author ligles
  */
 public class EntiteMobileManager {
-    private static ArrayList<EntiteMobile> ouvriers;
+    public static ArrayList<EntiteMobile> entiteMobiles;
     
 
     
     public static void init(){
-        ouvriers = new ArrayList<>();
-        
-        ouvriers.add(new Ouvrier(150, 170, 60, 60, 10, 45));
-        ouvriers.add(new Ouvrier(120, 120, 60, 60, 12, 25));
-        ouvriers.add(new Ouvrier(200, 260, 60, 60, 25, 40));
+        entiteMobiles = new ArrayList<>();
     }
     
     public static void gestionMouvemenent(){
-        ouvriers.stream().forEach((ouvrier) -> {
+        entiteMobiles.stream().forEach((ouvrier) -> {
             updateTarget(ouvrier);
         });
         
@@ -70,10 +65,10 @@ public class EntiteMobileManager {
     
     
     
-    public static ArrayList<Ouvrier> getClone(){
-        ArrayList<Ouvrier> clone = null;
-        if(ouvriers != null)
-            clone = (ArrayList<Ouvrier>) ouvriers.clone();
+    public static ArrayList<EntiteMobile> getClone(){
+        ArrayList<EntiteMobile> clone = null;
+        if(entiteMobiles != null)
+            clone = (ArrayList<EntiteMobile>) entiteMobiles.clone();
         
         return clone;
     }

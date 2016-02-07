@@ -9,7 +9,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import towercraftdefense.Towercraftdefense;
-import towercraftdefense.observers.Repainter;
 import towercraftdefense.views.Fenetre;
 
 /**
@@ -46,7 +45,6 @@ public class UIManager {
 
     public static void recalculateMap() {
         ZoneManager.update();
-        EntiteManager.init();
     }
     
     
