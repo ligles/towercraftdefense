@@ -47,6 +47,10 @@ public class Entite extends Rectangle2D.Double implements IDrawable, IObservable
         EntiteManager.entites.add(this);
         return true;
     }
+    
+    public boolean touch(int nx, int ny){
+        return x >= nx && y >= ny && x < x + width && y < y + height;
+    }
 
     public double getX() {
         return x;
@@ -64,9 +68,7 @@ public class Entite extends Rectangle2D.Double implements IDrawable, IObservable
     public void setY(double y) {
         this.y = y;
         notifyObserver();
-    }
-    
-    
+    }    
     
     public double getCoordx() {
         return this.x;

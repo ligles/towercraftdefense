@@ -2,8 +2,6 @@ package towercraftdefense.bo.environnement;
 
 import java.awt.Image;
 import towercraftdefense.bo.Entite;
-import towercraftdefense.bo.Zone;
-import towercraftdefense.manager.ZoneManager;
 
 /**
  * Created by SDOUGAMEHDI on 12/01/2016.
