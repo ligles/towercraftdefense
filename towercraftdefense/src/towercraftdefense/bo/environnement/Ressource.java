@@ -38,4 +38,8 @@ public class Ressource extends Entite {
         
         return created;
     }
+    
+    public boolean isSpent() {
+        return this.nbRessources <= 0; 
+    }
 }

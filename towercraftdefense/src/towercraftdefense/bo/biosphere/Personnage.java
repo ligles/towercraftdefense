@@ -3,6 +3,7 @@ package towercraftdefense.bo.biosphere;
 import towercraftdefense.bo.EntiteMobile;
 import towercraftdefense.bo.Zone;
 import towercraftdefense.interfaces.ICiblate;
+import towercraftdefense.manager.EntiteMobileManager;
 
 /**
  * Created by SDOUGAMEHDI on 12/01/2016.
@@ -11,6 +12,8 @@ public abstract class Personnage extends EntiteMobile implements ICiblate{
     
     private int health;
     private int damage;
+    protected boolean survey;
+    protected Thread surveyor;
     Zone zone;
     towercraftdefense.bo.Entite cible;
   
@@ -32,7 +35,10 @@ public abstract class Personnage extends EntiteMobile implements ICiblate{
         super.create();
         boolean isAlive = zone.populate(this);
         if(isAlive)
+        {
             notifyObserver();
+            EntiteMobileManager.entiteMobiles.add(this);
+        }
         
         return isAlive;
     }

@@ -9,6 +9,7 @@ import towercraftdefense.bo.biosphere.Personnage;
 
 import java.util.ArrayList;
 import towercraftdefense.bo.Zone;
+import towercraftdefense.bo.biosphere.Ouvrier;
 import towercraftdefense.bo.environnement.Decoration;
 import towercraftdefense.bo.environnement.Plan;
 import towercraftdefense.bo.environnement.Structure;
@@ -42,6 +43,7 @@ public class Partie {
         createChemin();
         createRessources();
         createDecorations();
+        createOuvrier();
     }
     
     public void createBase() {
@@ -60,6 +62,19 @@ public class Partie {
                 this.tours.add(tour);
             }
         }
+    }
+    
+    public void createOuvrier(){
+        
+        Zone  zoneBase = base.getPlan().getZones().get(0);
+        
+        if(zoneBase != null){
+            Ouvrier ouvrier = new Ouvrier(zoneBase, 5);
+            ouvrier.create();
+           
+            ouvrier.recolte();
+        }
+        
     }
     
         

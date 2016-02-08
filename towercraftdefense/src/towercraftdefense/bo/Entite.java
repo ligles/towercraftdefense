@@ -105,6 +105,10 @@ public class Entite extends Rectangle2D.Double implements IDrawable, IObservable
         this.height = height;
         notifyObserver();
     }
+
+    public Plan getPlan() {
+        return plan;
+    }
      
     @Override
     public void draw(Graphics2D g) {
@@ -132,4 +136,5 @@ public class Entite extends Rectangle2D.Double implements IDrawable, IObservable
     public void removeObserver(Observer obs) {
         observers.remove(obs);
     }
+
 }

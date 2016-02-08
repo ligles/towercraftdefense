@@ -25,6 +25,7 @@ public abstract class Projectile extends EntiteMobile implements ICiblate{
         super.arrived();
         if(cible instanceof Personnage)
             ((Personnage)cible).inflict(degats);
+        
         EntiteMobileManager.entiteMobiles.remove(this);
         notifyObserver();
     }
