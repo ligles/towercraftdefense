@@ -6,6 +6,7 @@
 package towercraftdefense.bo;
 
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
@@ -48,8 +49,8 @@ public class Entite extends Rectangle2D.Double implements IDrawable, IObservable
         return true;
     }
     
-    public boolean touch(int nx, int ny){
-        return x >= nx && y >= ny && x < x + width && y < y + height;
+    public boolean touch(Entite entite){
+        return this.getBounds().intersects(entite.getBounds());
     }
 
     public double getX() {
@@ -116,6 +117,8 @@ public class Entite extends Rectangle2D.Double implements IDrawable, IObservable
     public void draw(Graphics2D g) {
         //g.setColor(Color.red);
         //g.drawRect((int)x, (int)y, (int)width, (int)height); 
+        g.setColor(Color.red);
+        g.draw(this);
         g.drawImage(img, (int)x,(int)y,(int)width,(int)height,null);    
     }
 

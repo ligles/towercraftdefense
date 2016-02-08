@@ -6,6 +6,7 @@
 package towercraftdefense.interfaces;
 
 import java.awt.Point;
+import towercraftdefense.bo.Entite;
 
 /**
  *
@@ -14,6 +15,6 @@ import java.awt.Point;
 public interface IMovable {
     void avancer();
     void arret();
-    void go(int x, int y);
+    void go(Entite cible);
     void arrived();
 }

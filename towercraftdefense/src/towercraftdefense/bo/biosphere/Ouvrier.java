@@ -5,21 +5,28 @@ import java.util.logging.Logger;
 import towercraftdefense.bo.Entite;
 import towercraftdefense.bo.EntiteMobile;
 import towercraftdefense.bo.Zone;
+import towercraftdefense.bo.environnement.Base;
 import towercraftdefense.bo.environnement.Fleche;
 import towercraftdefense.bo.environnement.Tour;
 import towercraftdefense.manager.EntiteManager;
 import towercraftdefense.manager.EntiteMobileManager;
 import towercraftdefense.bo.environnement.Ressource;
+import towercraftdefense.manager.PartieManager;
 
 /**
  * Created by SDOUGAMEHDI on 12/01/2016.
  */
 public class Ouvrier extends Personnage{
+    int nbRessource;
+    int maxRessource;
+    
     public Ouvrier(Zone zone, int health) {
         super(zone, health, 0);
         this.vitesse = 20;
         this.width = 5;
         this.height = 30;
+        this.nbRessource = 0;
+        this.maxRessource = 10;
         this.img = towercraftdefense.ressources.Ressource.loadImage("robot.png");
     }
     
@@ -62,19 +69,63 @@ public class Ouvrier extends Personnage{
         }
 
     }
-public void recolte(){
     
-        if((Ressource)cible == null)
-                    ciblate();
-                else if(((Ressource)cible).isSpent())
-                    cible = null;
-        if (cible != null){
+    @Override
+    public void arrived(){
+        
+        if(cible instanceof Base){
+            //TODO deverser ressources
+            this.cible = null;
+            recolte();
+           
             
-            this.go((int)(cible.x+cible.width/2), (int)(cible.y+cible.height/2));
-
+        }else if (cible instanceof Ressource) {
+            
+            exploit();
+            
+            
+        }
+        
+    }
+            
+            
+    public void recolte(){
+    
+        if(cible == null)
+            ciblate();
+        else if(((Ressource)cible).isSpent())
+            cible = null;
+        
+        if (cible != null){
+            this.go(cible);
         }   
     }
     
-    
+    public boolean isEmpty(){
+        return nbRessource <= 0;
+    }
 
+    public boolean isFull(){
+        return nbRessource >= maxRessource;
+    }
+
+    private void exploit() {
+        
+      
+       Thread exploitor = new Thread(() -> {
+            while(!isFull()){
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Ouvrier.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                nbRessource = maxRessource; 
+            }
+            go(PartieManager.partie.getBase());
+
+        });
+        
+       exploitor.start();
+        
+    }
 }

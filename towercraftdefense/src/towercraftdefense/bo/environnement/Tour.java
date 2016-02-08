@@ -32,7 +32,7 @@ public class Tour extends Structure implements ICiblate{
     public void fire(){
         Fleche fleche = new Fleche((int)this.x, (int)this.y);
         fleche.create();
-        fleche.go((int)(cible.x+cible.width/2), (int)(cible.y+cible.height/2));
+        fleche.go(cible);
     }
     
     @Override

@@ -5,6 +5,9 @@
  */
 package towercraftdefense.bo;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import towercraftdefense.interfaces.ICiblate;
@@ -58,15 +61,17 @@ public abstract class EntiteMobile extends Entite implements IMovable, ICiblate{
     }
 
     @Override
-    public void go(int ciblex, int cibley) {
+    public void go(Entite ncible) {
         this.arret = false;
-        double nx = ciblex - this.x;
-        double ny = cibley - this.y;
+        cible = ncible;
+        double nx = cible.x - this.x;
+        double ny = cible.y - this.y;
         this.angle = (int) ((180 / Math.PI) * (Math.atan2(ny, nx)));
         Thread deplacement = new Thread(new Runnable(){
             @Override
             public void run() {
-                while(ciblex != x || cibley != y){
+                while(!touch(cible)){
+            
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException ex) {
@@ -83,7 +88,8 @@ public abstract class EntiteMobile extends Entite implements IMovable, ICiblate{
 
     @Override
     public void arrived() {
-        arret();
+        
+      
     }
 
     @Override
@@ -156,5 +162,15 @@ public abstract class EntiteMobile extends Entite implements IMovable, ICiblate{
         notifyObserver();
     }
 
+    /*@Override
+    public void draw(Graphics2D g) {
+        super.draw(g);
+        g.setColor(Color.BLUE);
+        if (cible != null) {
+            g.fillRect((int) cible.x - 1, (int) cible.y - 1, (int) cible.width + 3, (int) cible.height + 3);
+        }
+    }
+*/
+    
     
 }

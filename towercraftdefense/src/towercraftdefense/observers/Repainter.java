@@ -21,8 +21,10 @@ public class Repainter extends Observer {
         if(obj != null && obj instanceof Rectangle2D.Double){
             entite = (Rectangle2D.Double) obj;
             Rectangle rectangle = new Rectangle(entite.getBounds());
-            rectangle.height += 10;
-            rectangle.width += 10;
+            rectangle.height += 20;
+            rectangle.width += 20;
+            rectangle.x -= 10;
+            rectangle.y -= 10;
             UIManager.getFenetre().map.repaint(rectangle);
         }
     }

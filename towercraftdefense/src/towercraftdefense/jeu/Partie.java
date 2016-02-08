@@ -29,7 +29,7 @@ public class Partie {
     Joueur joueur;
     Base base;
     Chemin chemin;
-
+    
     public Partie(Joueur joueur) {
         this.joueur = joueur;
     }
@@ -160,5 +160,9 @@ public class Partie {
         return structures;
     }
 
+    public Base getBase() {
+        return base;
+    }
+    
 
 }
